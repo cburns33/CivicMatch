@@ -137,4 +137,51 @@ describe("private composition import and review queue", () => {
     await stage();
     expect((await db.query("select * from composition_review_progress()")).rows).toHaveLength(1);
   });
+  it("reports reviewable work and blockers from the latest decisions", async () => {
+    await stage();
+    const summary = async () => (await db.query<{ report: Record<string, unknown> }>("select composition_review_readiness($1) as report", [packet().runId])).rows[0].report;
+    expect(await summary()).toMatchObject({ total: 4, accepted: 0, open: 4, reviewableOpen: 3, blocked: 1, unreviewed: 4, reviewComplete: false, publicationEnabled: false });
+    const id = await task(); await decide(id, "accepted");
+    expect(await summary()).toMatchObject({ accepted: 1, open: 3, reviewableOpen: 2, unreviewed: 3 });
+    await decide(id, "needs_source");
+    expect(await summary()).toMatchObject({ accepted: 0, needsSource: 1, reviewableOpen: 3 });
+    await decide(id, "rejected");
+    expect(await summary()).toMatchObject({ needsSource: 0, rejected: 1 });
+  });
+  it("filters kind, decision, reviewable work, and literal search with exact page totals", async () => {
+    const payload = packet(); payload.records[0].printedTitle = "TEST ONLY 100%";
+    await stage(payload); await decide(await task(), "accepted");
+    const search = async (kind = "all", state = "all", query = "", offset = 0, limit = 20) =>
+      (await db.query<{ kind: string; matched_total: number }>("select * from composition_review_search($1,$2,$3,$4,$5,$6)", [payload.runId, offset, limit, kind, state, query])).rows;
+    expect(await search("record", "accepted", "test only")).toHaveLength(1);
+    expect(await search("record", "open")).toHaveLength(0);
+    expect(await search("all", "blocked")).toHaveLength(1);
+    expect(await search("all", "reviewable")).toHaveLength(2);
+    expect(await search("all", "all", "%")).toHaveLength(1);
+    expect(await search("all", "all", "no matching phrase")).toEqual([]);
+    expect((await search("all", "all", "", 0, 2)).map((r) => Number(r.matched_total))).toEqual([4, 4]);
+    expect(await search("all", "all", "", 4)).toEqual([]);
+  });
+  it.each([["bad", "all", "", 0, 20], ["all", "bad", "", 0, 20], ["all", "all", "x".repeat(201), 0, 20],
+    ["all", "all", "", -1, 20], ["all", "all", "", 0, 51], ["all", null, "", 0, 20]])("rejects invalid search inputs %j", async (kind, state, query, offset, limit) => {
+    await expect(db.query("select * from composition_review_search($1,$2,$3,$4,$5,$6)", [packet().runId, offset, limit, kind, state, query])).rejects.toThrow(/Invalid review filters/);
+  });
+  it("does not make a reviewed historical import publishable", async () => {
+    const payload = packet(); payload.documents[0].issues = [];
+    await stage(payload);
+    const tasks = await db.query<{ id: string }>("select id from composition_review_tasks");
+    for (const row of tasks.rows) await decide(row.id, "accepted");
+    const second = packet(); second.runId = "c".repeat(64); second.status = "failed";
+    await stage(second);
+    const report = await db.query<{ report: Record<string, unknown> }>("select composition_review_readiness($1) as report", [payload.runId]);
+    expect(report.rows[0].report).toMatchObject({ reviewComplete: true, isLatestImport: false, publicationEnabled: false });
+  });
+  it("hides readiness and search after membership is removed, and denies anonymous execution", async () => {
+    await stage();
+    await db.exec(`reset role; delete from private.admin_users where user_id='${actor}'`); await asUser(actor);
+    expect((await db.query("select * from composition_review_search($1)", [packet().runId])).rows).toEqual([]);
+    expect((await db.query("select composition_review_readiness($1) as report", [packet().runId])).rows[0]).toEqual({ report: null });
+    await db.exec("set local role anon");
+    await expect(db.query("select composition_review_readiness($1)", [packet().runId])).rejects.toThrow(/permission denied/);
+  });
 });

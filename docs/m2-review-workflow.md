@@ -47,3 +47,19 @@ There are zero verified official address/style fixtures. A consolidated county m
 PostgreSQL tests exercise transaction rollback, idempotence, altered-payload rejection, role/RLS isolation, current membership, history immutability, decision reopening, source membership, and hard blockers. Mocked browser tests cover sign-in, saving, decision history, sign-out, and non-reviewer denial. The separate live hosted verification checks real passwords/JWTs, API grants, RLS, source blockers, token forgery, and membership revocation. It creates and removes one synthetic non-reviewer and never accepts a ballot review task.
 
 Current v4 imports contain 391 Travis tasks, including two hard blockers, and 286 Harris tasks, including one hard blocker. Earlier batches are retained. Both current batches have zero decisions. Style comparison reports remain separate from approval and cannot clear a review blocker.
+
+## Work available while official references are pending
+
+The reviewer screen now offers task-type, status, and literal text filters. Choose Open tasks ready for review to exclude flags requiring a new import. Search covers staged source content and the latest review note. Applying a filter or changing imports resets pagination; saving a decision refreshes both the matching tasks and the summary. Clearing filters restores all tasks. Source and decision requirements stay in force.
+
+The per-import Review readiness panel reports accepted/open counts by task type, unreviewed tasks, evidence requests, rejected tasks, and hard blocker codes. It identifies historical imports and failed imports. All counts derive from current stored decisions. The current imports have 389 reviewable open tasks in Travis and 285 in Harris, with two and one new-import blockers, respectively. These are tasks available for review, not reviewed facts or approved ballots.
+
+Migration `20261027020555_review_readiness_and_filters.sql` adds two read-only invoker functions. `composition_review_search` validates filters, caps each page at 50, returns exact matching totals, and uses existing RLS. `composition_review_readiness` reads the same protected records. Anonymous execution is denied, ordinary accounts see no draft results, and revoked membership takes effect with the same JWT. No table, write grant, approval path, or publisher was added. The previous paging function remains compatible with earlier callers.
+
+Run the read-only operator check with:
+
+```powershell
+node --env-file=.env.local scripts/check-review-readiness.mjs
+```
+
+It pins the confirmed project, signs in as the provisioned reviewer using the publishable client, checks the two current local run pointers against hosted totals, and writes aggregate metadata to ignored `output/readiness/current.json`. It creates no decisions or accounts. Exit code 2 means publication remains unavailable. A complete review of every task still requires separate official style/address validation, normalized composition validation, and a trusted publisher.

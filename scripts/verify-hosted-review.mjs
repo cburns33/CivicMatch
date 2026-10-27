@@ -30,6 +30,17 @@ try {
   verify(!progress.error && progress.data.length === 2, "both_county_imports_visible_to_reviewer");
   verify(progress.data.every((row) => row.accepted === 0 && row.open === row.total), "no_fabricated_approvals");
   const first = progress.data[0];
+  for (const row of progress.data) {
+    const summary = await reviewer.rpc("composition_review_readiness", { p_run: row.run_sha256 });
+    verify(!summary.error && summary.data?.runId === row.run_sha256 && summary.data.total === row.total && summary.data.accepted === 0 &&
+      summary.data.reviewableOpen + summary.data.blocked === row.open && summary.data.publicationEnabled === false, `${row.county}_readiness_matches_current_import`);
+    const reviewable = await reviewer.rpc("composition_review_search", { p_run: row.run_sha256, p_state: "reviewable", p_limit: 1 });
+    verify(!reviewable.error && reviewable.data.length === 1 && !reviewable.data[0].requires_new_import && Number(reviewable.data[0].matched_total) === summary.data.reviewableOpen,
+      `${row.county}_reviewable_filter_excludes_hard_blockers`);
+    const blocked = await reviewer.rpc("composition_review_search", { p_run: row.run_sha256, p_state: "blocked", p_limit: 1 });
+    verify(!blocked.error && blocked.data.length === 1 && blocked.data[0].requires_new_import && Number(blocked.data[0].matched_total) === summary.data.blocked,
+      `${row.county}_blocked_filter_matches_readiness`);
+  }
   const queue = await reviewer.rpc("composition_review_page", { p_run: first.run_sha256, p_offset: 0, p_limit: 1 });
   verify(!queue.error && queue.data.length === 1, "reviewer_can_read_bounded_queue");
   const source = await reviewer.from("composition_review_tasks").select("payload").eq("run_sha256", first.run_sha256).eq("kind", "source").limit(1);
@@ -39,6 +50,8 @@ try {
   const publicDraft = await visitor.from("composition_batches").select("run_sha256").limit(1);
   verify(publicDraft.error?.code === "42501", "anonymous_draft_read_denied");
   verify(Boolean((await visitor.rpc("composition_review_progress")).error), "anonymous_review_rpc_denied");
+  verify(Boolean((await visitor.rpc("composition_review_readiness", { p_run: first.run_sha256 })).error), "anonymous_readiness_denied");
+  verify(Boolean((await visitor.rpc("composition_review_search", { p_run: first.run_sha256, p_limit: 1 })).error), "anonymous_search_denied");
   const publicSnapshot = await visitor.from("publication_snapshots").select("id").limit(1);
   verify(!publicSnapshot.error && publicSnapshot.data.length === 0, "no_official_snapshot_published");
   const directWrite = await reviewer.from("composition_review_tasks").insert({});
@@ -58,6 +71,9 @@ try {
   verify((await ordinary.rpc("is_composition_reviewer")).data === false, "user_metadata_does_not_grant_access");
   const ordinaryRows = await ordinary.from("composition_review_tasks").select("id").limit(1);
   verify(!ordinaryRows.error && ordinaryRows.data.length === 0, "ordinary_user_draft_rows_hidden");
+  const hiddenReadiness = await ordinary.rpc("composition_review_readiness", { p_run: first.run_sha256 });
+  const hiddenSearch = await ordinary.rpc("composition_review_search", { p_run: first.run_sha256, p_limit: 1 });
+  verify(!hiddenReadiness.error && hiddenReadiness.data === null && !hiddenSearch.error && hiddenSearch.data.length === 0, "ordinary_user_readiness_and_search_hidden");
   verify(Boolean((await ordinary.rpc("stage_composition_batch", { p_payload: {} })).error), "ordinary_user_import_denied");
 
   const parts = login.data.session.access_token.split(".");
@@ -74,6 +90,8 @@ try {
   await writeFile(sqlPath, `delete from private.admin_users where user_id='${testId}';`);
   run(`npx supabase db query --linked --project-ref ${project} --file ${sqlPath} --output json`);
   verify((await ordinary.rpc("is_composition_reviewer")).data === false, "membership_revocation_effective_with_same_jwt");
+  const revokedReadiness = await ordinary.rpc("composition_review_readiness", { p_run: first.run_sha256 });
+  verify(!revokedReadiness.error && revokedReadiness.data === null, "readiness_hidden_after_same_jwt_revocation");
   const decisions = await reviewer.from("composition_review_decisions").select("sequence", { count: "exact", head: true });
   verify(!decisions.error && decisions.count === 0, "verification_left_no_review_decisions");
 } finally {
