@@ -61,7 +61,7 @@ The ignored `data/official/REVIEW.md` packet lists staged records, bilingual mea
 
 The public `/official-data` page displays source metadata, checksums, aggregate coverage, staged counts, and review issues. It excludes candidate records, proposition text, form values, and machine transcriptions. The ballot explorer uses labeled synthetic fixtures. No official composition snapshot or individual ballot is published.
 
-The [private review workflow](m2-review-workflow.md) implements transactional staging, RLS-protected tasks, authenticated reviewer functions, append-only decisions, and derived progress. The user-confirmed hosted project now holds the two current runs with 679 open tasks and zero decisions; [live Auth/API checks](m2-hosted-verification.md) have passed. Remaining work includes the local write-in certification, the library cancellation conflict, record-by-record review, official jurisdictions/styles, normalized composition mapping, and a trusted publisher that validates every contributing source. Verified official address/style examples are required before personalized lookup.
+The [private review workflow](m2-review-workflow.md) implements transactional staging, RLS-protected tasks, authenticated reviewer functions, append-only decisions, and derived progress. The two current hosted runs have 677 open tasks and zero decisions; earlier runs remain preserved. The County Clerk qualification-source gap is closed. The [normalized mapping engine and publisher controls](m2-composition-publisher.md) are implemented, with incomplete private drafts for both counties. Remaining work includes the library cancellation conflict, explicit assignments and named mapping review, record-by-record source review, official jurisdictions/styles, trusted human style evidence, and runtime integration. Verified official address/style examples are required before personalized lookup. See the [current handoff](project-status.md).
 
 ## Current style-validation pass
 
@@ -69,7 +69,7 @@ The [ballot style comparison harness](m2-ballot-style-validation.md) rejects cha
 
 ## Verification
 
-- Nineteen Python tests pass, including all-four-clause electorate matching, mismatch preservation, source scope, printed names, and immutable replay.
-- One hundred two Vitest tests pass, including database transactions, RLS isolation, source/page membership, immutable decision history, reopening, hard blockers, and public intake validation.
-- Twelve desktop/mobile browser flows pass, including public intake and a synthetic mocked reviewer sign-in/decision/sign-out flow. Hosted Auth/JWT/Data API verification now passes too. Exhaustive human review remains pending.
-- Vercel deployment `dpl_4BMdvXbf8eMQHvjBiYwWpfgEEDUs` is READY. `/official-data` and `/admin` returned public HTTP 200; mobile overflow checks and draft-content exclusion passed. The hosted review page displays its connection-pending state.
+- Last pipeline verification passed 26 Python tests covering extraction, supplemental reconciliation, immutable replay, qualification export, and style comparisons.
+- Last implementation verification passed 141 Vitest tests, including 26 mapping/publisher cases, plus TypeScript and the production build.
+- Sixteen mocked desktop/mobile browser flows and 44 live hosted Auth/API/publisher checks passed. Exhaustive human review remains pending.
+- The live reviewer page is connected and includes read-only mapping status. Actual deployed desktop/mobile checks passed sign-in, current blockers, review filtering/pagination, overflow, and sign-out cleanup. No official snapshot or active pointer was created. Detailed deployment history is in [hosted verification](m2-hosted-verification.md).

@@ -49,7 +49,7 @@ Code commit `b1a28d0dd2179ea29e69c50a450542c1ee788f2b` triggered Vercel producti
 
 The three exposed privileged-function warnings were resolved. The performance advisor reports no warnings or errors. The security advisor retains one provider warning: leaked-password protection is disabled. Supabase documents that feature as [Pro and above](https://supabase.com/docs/guides/auth/password-security); it was left off to honor the Free-only restriction. The provisioned reviewer uses a generated password, public signup is disabled, and existing provider MFA settings were preserved.
 
-Original source review remains incomplete. County Clerk write-in certification, the library cancellation conflict, official ballot-style/address references, normalized composition mapping, and the trusted publisher remain outstanding. Hosted connectivity is not evidence of approved ballot composition. No official personalized ballot or candidate ranking is published.
+Source review remains incomplete. Later passes closed the County Clerk qualification-source gap and implemented the mapping engine and publisher controls. The library cancellation, explicit mapping assignments and approvals, official style/address references, and runtime integration remain outstanding. Hosted connectivity is not evidence of approved ballot composition. No official personalized ballot or candidate ranking is published. The [current handoff](project-status.md) supersedes earlier implementation-stage counts in this verification history.
 
 ## M2 v4 continuation
 
