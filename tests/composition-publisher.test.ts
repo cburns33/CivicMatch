@@ -192,4 +192,12 @@ describe("normalized composition mapping and trusted publication", () => {
     const sha = await stage(mapping(altered.runId));
     expect((await report(sha)).blockers).toContain("entry_provenance_invalid");
   });
+  it("rejects non-string names and keys instead of publishing malformed normalized entities", async () => {
+    const input = mapping(); input.jurisdictions[0].name = { invalid: true } as unknown as string;
+    await expect(stage(input)).rejects.toThrow(/Invalid mapping field types/);
+  });
+  it("rejects non-string style membership even when it could be coerced to text", async () => {
+    const input = mapping(); input.styles[0].recordIds = [1] as unknown as string[];
+    await expect(stage(input)).rejects.toThrow(/Invalid style membership types/);
+  });
 });
