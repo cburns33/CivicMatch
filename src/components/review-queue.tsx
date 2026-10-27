@@ -5,6 +5,7 @@ import { createClient, type SupabaseClient } from "@supabase/supabase-js";
 import { Button } from "@/components/ui/button";
 import { ReviewReadiness, reviewKinds, type Readiness } from "@/components/review-readiness";
 import { CompositionMappingStatus, type MappingStatus } from "@/components/composition-mapping-status";
+import { ResearchPreview } from "@/components/research-preview";
 
 type Progress = { run_sha256: string; county: string; total: number; accepted: number; open: number; requires_new_import: number };
 type Task = { id: string; task_key: string; kind: string; payload: Record<string, unknown>; requires_new_import: boolean; matched_total: number; last_decision: { decision: string; note: string; reviewerId: string; decidedAt: string } | null };
@@ -116,6 +117,7 @@ export function ReviewQueue() {
       <p>Use a provisioned reviewer account. This page does not create accounts.</p>
     </form> : <>
       <Button variant="outline" disabled={busy} onClick={async () => { await client.auth.signOut({scope: "local"}); setMessage("Signed out."); }}>Sign out</Button>
+      <ResearchPreview client={client} />
       {progress.length === 0 ? <p>No imports have been staged in this project. Import the archived county records to begin review.</p> : <>
         <label className="review-form">Import<select aria-label="Import" value={run} disabled={busy} onChange={(e) => void changePage(e.target.value, 0, defaultFilters)}>
           {progress.map((p) => <option key={p.run_sha256} value={p.run_sha256}>{p.county === "travis" ? "Travis" : "Harris"} · {p.open} open tasks · {p.run_sha256.slice(0, 8)}</option>)}

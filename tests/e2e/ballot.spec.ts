@@ -63,7 +63,7 @@ test("official intake shows sources and pending scope without unreviewed candida
 test("browse labeled fixtures, switch city, and inspect ballot edge cases", async ({
   page,
 }) => {
-  await page.goto("/");
+  await page.goto("/demo");
   await expect(
     page.getByRole("heading", { name: "Every contest. A clearer picture." }),
   ).toBeVisible();
@@ -105,7 +105,7 @@ test("browse labeled fixtures, switch city, and inspect ballot edge cases", asyn
 test("search has a recoverable empty state and judicial research stays distinct", async ({
   page,
 }) => {
-  await page.goto("/");
+  await page.goto("/demo");
   await page
     .getByLabel("Search contests or example candidates")
     .fill("no such contest");

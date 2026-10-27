@@ -2,7 +2,7 @@
 
 Start with the [current project status and next steps](docs/project-status.md) when resuming work. M2 is in progress; official composition publication remains blocked on assignments, human review, and official style evidence.
 
-M1 foundation for a mobile-first, nonpartisan voter information platform for Austin and Houston. The initial election target is November 3, 2026. **All ballot content in this milestone is synthetic test data. It cannot establish anyone’s official ballot or eligibility.**
+Mobile-first, nonpartisan voter information for the November 3, 2026 election. The homepage now provides a selected Texas governor race guide with all three printed candidates and four qualified write-ins, original-source links, and a seven-question device-only questionnaire. Candidate-position mappings and public agreement scores await human review. The synthetic ballot explorer remains at `/demo`. No individual ballot or eligibility claim is made. See [first-race release](docs/first-race-release.md).
 
 M2 source intake is in progress. The [official source status page](https://civicmatch-tx.vercel.app/official-data) tracks 58 archived PDFs plus one official candidate-portal workbook, all pending review. The county adapters stage 314 candidate contests, 655 printed entries, 131 proposition records, and eight unopposed declaration blocks across both masters. They reconcile 26 county-contest write-in entries and 82 cancellation scopes. All 317 source pages are archived, with targeted first-page extraction for the two added reference orders and 206 pages of unverified machine transcription. Structured records remain private and unreviewed; the ballot explorer still uses test fixtures. See [M2 intake scope and next steps](docs/m2-intake.md) and [ballot style validation](docs/m2-ballot-style-validation.md).
 
@@ -17,7 +17,7 @@ npm ci
 npm run dev
 ```
 
-Open [localhost:3000](http://localhost:3000). The fixture overview needs no database configuration. The private `/admin` screen uses the project URL and publishable key named in `.env.example`. Never put reviewer passwords or server-only keys in `NEXT_PUBLIC_` variables.
+Open [localhost:3000](http://localhost:3000). The guide and questionnaire need no database configuration. The private `/admin` screen uses the project URL and publishable key named in `.env.example`. Never put reviewer passwords or server-only keys in `NEXT_PUBLIC_` variables.
 
 ```powershell
 npm run typecheck

@@ -4,15 +4,16 @@ import {
   evidenceConfidenceLevels,
   evidenceMethodologyVersion,
 } from "@/domain/research";
-export const metadata = { title: "Proposed methodology" };
+export const metadata = { title: "Comparison methodology" };
 export default function Methodology() {
   return (
     <article className="document-page">
       <div className="eyebrow">OPEN METHODOLOGY · SCORING PROPOSAL V1</div>
       <h1>Understand the comparison.</h1>
       <p className="lede">
-        M1 defines the models. Policy questions, candidate research, and score
-        calculations are not active in this preview.
+        The governor guide includes seven issue questions, importance ratings,
+        and device-only answer storage. Candidate mappings require human review
+        before public comparisons. Coverage limits appear alongside results.
       </p>
       <h2>Ballot and research coverage are independent.</h2>
       <p>
@@ -162,7 +163,7 @@ export default function Methodology() {
         has four times the influence of the lowest weight. Importance changes
         influence, leaving policy responses intact.
       </p>
-      <h2>A deterministic, versioned proposal.</h2>
+      <h2>A deterministic, versioned calculation.</h2>
       <p>
         For each eligible question, agreement = 1 − |user position − reviewed
         candidate position| / 4. Weighted agreement = sum(agreement × weight) /
@@ -176,20 +177,19 @@ export default function Methodology() {
       </p>
       <h2>Enough information before a percentage.</h2>
       <p>
-        The initial proposed gate requires 5 applicable answers, 5 comparable
-        questions, and 60% evidence coverage. These are provisional product
-        choices pending review. Results will use ballot order and will not rank
-        or endorse candidates. There are no candidate scores in M1.
+        The selected-race guide requires 5 applicable answers, 5 comparable
+        questions, and 60% evidence coverage. Results preserve source order.
+        Candidate mappings remain excluded until human review. The guide
+        presents evidence and agreement without endorsements or rankings.
       </p>
       <h2>Review, revise, reproduce.</h2>
       <p>
-        Future results will retain question revisions, evidence and publication
-        snapshot references, response states, importance values, and a
-        scoring-method version. A review step will distinguish directional,
-        neutral, skipped, and unanswered responses. Sensitivity views will
-        compare weighted results with equal weights and the user’s high-priority
-        questions. An optional top-three view needs a separate documented method
-        before implementation.
+        The guide identifies its question revisions, research version, source
+        references, and scoring method. Your answers and importance ratings are
+        saved on this device, with no account or server sync. The review screen
+        distinguishes directional, neutral, skipped, and unanswered responses.
+        Results include equal-weight sensitivity and a gated high-priority
+        subset. Print a comparison to retain the displayed version and answers.
       </p>
       <h2>Evidence first.</h2>
       <p>
@@ -199,7 +199,7 @@ export default function Methodology() {
         visible in the research record and reduces coverage when unresolved.
       </p>
       <Link className="text-link" href="/">
-        Return to the test ballot →
+        Return to the governor guide →
       </Link>
     </article>
   );

@@ -1,5 +1,5 @@
-import { BallotExplorer } from "@/components/ballot-explorer";
-import { fixtureBallots } from "@/data/fixtures";
+import { RaceComparison } from "@/components/race-comparison";
+import { publishedGovernorResearch } from "@/data/governor-guide";
 export default function Home() {
-  return <BallotExplorer data={fixtureBallots} />;
+  return <RaceComparison research={publishedGovernorResearch} />;
 }

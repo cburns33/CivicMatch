@@ -45,6 +45,38 @@ describe("private composition import and review queue", () => {
   });
   afterEach(async () => { await db.exec("rollback"); });
 
+  it("restricts immutable selected-race drafts to current reviewers", async () => {
+    const draft = JSON.stringify({ version: "synthetic", review: { status: "pending", reviewer: null, reviewedAt: null }, positions: [], sources: [] });
+    await db.exec("reset role");
+    await db.query("insert into race_guide_drafts(version,payload) values ('synthetic',$1::jsonb)", [draft]);
+    await asUser(actor);
+    expect((await db.query("select version, length(sha256) as hash_length from race_guide_drafts")).rows).toEqual([{ version: "synthetic", hash_length: 64 }]);
+    await asUser(other);
+    expect((await db.query("select version from race_guide_drafts")).rows).toEqual([]);
+    await db.exec(`reset role; delete from private.admin_users where user_id='${actor}'`); await asUser(actor);
+    expect((await db.query("select version from race_guide_drafts")).rows).toEqual([]);
+    await db.exec("set local role anon");
+    await expect(db.query("select version from race_guide_drafts")).rejects.toThrow(/permission denied/);
+  });
+  it("denies client draft writes", async () => {
+    await expect(db.query("insert into race_guide_drafts(version,payload) values ('synthetic','{}')")).rejects.toThrow(/permission denied/);
+  });
+  it("requires a complete pending envelope and makes operator-staged drafts immutable", async () => {
+    await db.exec("reset role");
+    const draft = JSON.stringify({ version: "synthetic", review: { status: "pending", reviewer: null, reviewedAt: null }, positions: [], sources: [] });
+    await db.query("insert into race_guide_drafts(version,payload) values ('synthetic',$1::jsonb)", [draft]);
+    await expect(db.query("update race_guide_drafts set payload=payload where version='synthetic'")).rejects.toThrow(/immutable/i);
+  });
+  it.each([
+    {},
+    { version: "synthetic", review: { status: "approved", reviewer: "TEST", reviewedAt: "2026-10-27" }, positions: [], sources: [] },
+    { version: "wrong-version", review: { status: "pending", reviewer: null, reviewedAt: null }, positions: [], sources: [] },
+    { version: "synthetic", review: { status: "pending", reviewer: null, reviewedAt: null }, positions: {}, sources: [] },
+  ])("rejects invalid or falsely approved research envelopes %j", async (draft) => {
+    await db.exec("reset role");
+    await expect(db.query("insert into race_guide_drafts(version,payload) values ('synthetic',$1::jsonb)", [JSON.stringify(draft)])).rejects.toThrow(/pending_research_only/);
+  });
+
   it("accepts the official portal workbook as supporting evidence", async () => {
     const payload = packet();
     payload.documents.push({ source: { sha256: "c".repeat(64), county: "travis", kind: "supporting_reference",
