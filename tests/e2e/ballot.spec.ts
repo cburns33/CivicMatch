@@ -10,6 +10,7 @@ test("official intake shows sources and pending scope without unreviewed candida
       exact: false,
     })
     .click();
+  await page.waitForURL("**/official-data");
   await expect(
     page.getByRole("heading", { name: "Building from the official record." }),
   ).toBeVisible();

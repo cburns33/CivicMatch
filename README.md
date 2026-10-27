@@ -4,7 +4,7 @@ M1 foundation for a mobile-first, nonpartisan voter information platform for Aus
 
 M2 source intake is in progress. The [official source status page](https://civicmatch-tx.vercel.app/official-data) tracks 58 archived PDFs and pending review. The county adapters stage 314 candidate contests, 655 printed entries, 131 proposition records, and eight unopposed declaration blocks across both masters. They reconcile 25 county-contest write-in entries and 82 cancellation scopes. All 317 source pages are archived, with targeted first-page extraction for the two added reference orders and 206 pages of unverified machine transcription. Structured records remain local and unreviewed; the ballot explorer still uses test fixtures. See [M2 intake scope and next steps](docs/m2-intake.md).
 
-The next M2 step adds a private review queue with transactional imports, source-linked decisions, immutable history, current administrator membership checks, and open-task counts derived from decisions. The `/admin` page waits for a confirmed hosted database. The local review store uses an explicit Auth shim and has no human approvals. See [review workflow and setup](docs/m2-review-workflow.md) and [Travis flag findings](docs/travis-review-followup.md).
+M2 includes a hosted private review queue with transactional imports, source-linked decisions, immutable history, current administrator membership checks, and open-task counts derived from decisions. The confirmed CivicMatch Supabase project holds 679 pending tasks and zero review decisions. The local review store remains available with its explicit Auth shim. See [review workflow and setup](docs/m2-review-workflow.md), [hosted verification](docs/m2-hosted-verification.md), and [Travis flag findings](docs/travis-review-followup.md).
 
 ## Run locally
 
@@ -15,7 +15,7 @@ npm ci
 npm run dev
 ```
 
-Open [localhost:3000](http://localhost:3000). No API keys, Supabase connection, account, or environment file is needed for the fixture overview. `.env.example` reserves public configuration names for a later administration integration. Never put secret or service-role keys in `NEXT_PUBLIC_` variables.
+Open [localhost:3000](http://localhost:3000). The fixture overview needs no database configuration. The private `/admin` screen uses the project URL and publishable key named in `.env.example`. Never put reviewer passwords or server-only keys in `NEXT_PUBLIC_` variables.
 
 ```powershell
 npm run typecheck
@@ -72,4 +72,4 @@ The [evidence review standard](docs/evidence-methodology.md) documents separate 
 
 ## Hosted fixture preview
 
-At the user's request, the preview was deployed on October 26, 2026: [civicmatch-tx.vercel.app](https://civicmatch-tx.vercel.app). It uses a standard Next.js build with no database connection. Vercel project: `cburns33s-projects/civicmatch-tx`. Deployment configuration is in `vercel.json`; `.vercelignore` excludes local state, environment files, tests, and non-web workspaces from uploads. Source metadata and intake counts are public. Official composition remains unapproved, and no Supabase project is connected.
+At the user's request, the preview is hosted at [civicmatch-tx.vercel.app](https://civicmatch-tx.vercel.app). Vercel project: `cburns33s-projects/civicmatch-tx`, connected to `cburns33/CivicMatch`. The private review workflow connects to the dedicated Supabase project `rsmwpzzypdbpffdeolal`; public pages continue to use fixtures and source-intake metadata. Deployment configuration is in `vercel.json`; `.vercelignore` excludes local state, environment files, tests, and non-web workspaces from uploads. Official composition remains unapproved.

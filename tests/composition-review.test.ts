@@ -117,4 +117,10 @@ describe("private composition import and review queue", () => {
     await stage(); await decide(await task(), "needs_source"); await db.exec("reset role");
     await expect(db.exec(`delete from ${table}`)).rejects.toThrow(/Immutable/);
   });
+  it("keeps privileged implementations outside the exposed API schema", async () => {
+    const result = await db.query("select p.proname from pg_proc p join pg_namespace n on n.oid=p.pronamespace where n.nspname='public' and p.prosecdef");
+    expect(result.rows).toEqual([]);
+    await stage();
+    expect((await db.query("select * from composition_review_progress()")).rows).toHaveLength(1);
+  });
 });

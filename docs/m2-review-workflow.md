@@ -1,6 +1,6 @@
 # M2 private import and review workflow
 
-This step implements durable staging and evidence-linked review. It does not approve composition or publish a ballot snapshot. No hosted database has been selected or changed.
+This step implements durable staging and evidence-linked review. It does not approve composition or publish a ballot snapshot. The user-selected project `rsmwpzzypdbpffdeolal` now hosts both current county imports. See [hosted verification](m2-hosted-verification.md).
 
 ## What is implemented
 
@@ -11,7 +11,7 @@ This step implements durable staging and evidence-linked review. It does not app
 - Source gaps, extraction failures, and unverified style membership cannot be accepted through a note. They require a corrected or newly verified import. Historical source-gap tasks receive the same protection.
 - `/admin` provides provisioned-account sign-in, paginated tasks, printed source content, before/after records, source links, decisions, latest decision history, and sign-out. Supabase sessions remain in browser memory. Every data read and decision is subject to database authorization. No service-role key is used by this flow.
 
-The migrations are `20261026200436_composition_review_queue.sql`, `20261026201031_composition_review_page.sql`, and `20261026202032_composition_source_blockers.sql`. They add private working data to the foundation and do not change public snapshot permissions.
+The review migrations are `20261026200436_composition_review_queue.sql`, `20261026201031_composition_review_page.sql`, `20261026202032_composition_source_blockers.sql`, and `20261027005856_private_review_functions.sql`. Privileged write implementations live in the private schema, behind public invoker wrappers with current-membership checks. The membership lookup uses the caller's read-own-membership policy. Public snapshot permissions are unchanged.
 
 ## Local staged store
 
@@ -23,11 +23,11 @@ The command verifies each source PDF against its content-addressed archive path 
 
 The local store uses a minimal Auth shim and a synthetic local import actor. That actor imports records and produces no review decisions. It is not a human reviewer identity or a Supabase Auth/API test. Back up the local store alongside the source archive. The browser review UI uses the hosted Supabase Data API after configuration, and does not read the local PGlite directory.
 
-## Hosted activation, pending project selection
+## Hosted configuration
 
-1. Confirm the dedicated CivicMatch target and its cost before creating resources, or confirm an existing project's intended use. The discovered projects are generic and unrelated names; neither has been selected.
-2. Apply the reviewed migrations to an isolated target. Run the full reset, database advisors, Auth/JWT/Data API checks, and role tests. PGlite verification alone does not replace these checks.
-3. Configure `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`. Provision a reviewer through trusted Auth administration, then insert that verified Auth UUID into `private.admin_users` through a trusted database connection. Client accounts cannot provision themselves.
+1. Use the confirmed project `rsmwpzzypdbpffdeolal` in the dedicated `CivicMatch TX` organization. The user's Free-only constraint remains in force. Existing unrelated projects are unchanged.
+2. All five migrations were applied to the new project's empty application schema. Hosted Auth/JWT/Data API checks and database advisors were run. Docker-backed local reset is still unavailable; no hosted reset was performed.
+3. Configure `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`. A reviewer matching the authenticated Supabase owner's email has been provisioned through Auth administration and `private.admin_users`. Its generated password is stored only in ignored `.env.local`. No email was sent. Client accounts cannot provision themselves. Public signup is disabled.
 4. Run the hosted import as the provisioned reviewer, with operator-only credentials supplied through environment variables. Never put reviewer credentials in `NEXT_PUBLIC_` variables, logs, or Git.
 
 ```powershell
@@ -44,4 +44,4 @@ There are zero verified official address/style fixtures. A consolidated county m
 
 ## Verification limits
 
-PostgreSQL tests exercise transaction rollback, idempotence, altered-payload rejection, role/RLS isolation, current membership, history immutability, decision reopening, source membership, and hard blockers. Browser tests use a synthetic mocked Auth/Data API and check sign-in, evidence-linked saving, latest-decision display, disabled blocker acceptance, sign-out, and denial of non-reviewer access on desktop/mobile. Real hosted Auth/JWT/Data API checks remain pending target configuration.
+PostgreSQL tests exercise transaction rollback, idempotence, altered-payload rejection, role/RLS isolation, current membership, history immutability, decision reopening, source membership, and hard blockers. Mocked browser tests cover sign-in, saving, decision history, sign-out, and non-reviewer denial. The separate live hosted verification checks real passwords/JWTs, API grants, RLS, source blockers, token forgery, and membership revocation. It creates and removes one synthetic non-reviewer and never accepts a ballot review task.
