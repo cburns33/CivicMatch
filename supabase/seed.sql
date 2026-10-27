@@ -1,0 +1,2 @@
+-- M1 intentionally seeds no official records, administrator, or user responses.
+-- Synthetic UI fixtures live in src/data/fixtures.ts and are not database imports.

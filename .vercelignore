@@ -1,0 +1,16 @@
+.git
+.next
+node_modules
+output
+.playwright-cli
+test-results
+playwright-report
+coverage
+.env*
+docs
+pipelines
+supabase
+tests
+AGENTS.md
+*.tsbuildinfo
+/data/
