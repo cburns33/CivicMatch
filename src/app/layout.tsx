@@ -91,7 +91,7 @@ export default function RootLayout({
         <footer>
           <span>© 2026 CivicMatch TX</span>
           <span>Nonpartisan by design. Transparent by default.</span>
-          <span>Selected coverage · research review pending</span>
+          <span>Friends early access · sourced comparisons</span>
         </footer>
       </body>
     </html>

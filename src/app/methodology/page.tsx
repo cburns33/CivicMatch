@@ -12,8 +12,9 @@ export default function Methodology() {
       <h1>Understand the comparison.</h1>
       <p className="lede">
         The governor guide includes seven issue questions, importance ratings,
-        and device-only answer storage. Candidate mappings require human review
-        before public comparisons. Coverage limits appear alongside results.
+        and device-only answer storage. This friends early-access version uses
+        sourced, AI-assisted provisional candidate mappings. Coverage limits,
+        source links, and interpretations appear alongside results.
       </p>
       <h2>Ballot and research coverage are independent.</h2>
       <p>
@@ -179,8 +180,9 @@ export default function Methodology() {
       <p>
         The selected-race guide requires 5 applicable answers, 5 comparable
         questions, and 60% evidence coverage. Results preserve source order.
-        Candidate mappings remain excluded until human review. The guide
-        presents evidence and agreement without endorsements or rankings.
+        Provisional mappings are labeled. Missing positions and unresolved
+        interpretations stay unscored. The guide presents evidence and
+        agreement without endorsements or rankings.
       </p>
       <h2>Review, revise, reproduce.</h2>
       <p>
@@ -194,8 +196,8 @@ export default function Methodology() {
       <h2>Evidence first.</h2>
       <p>
         Party membership never supplies a missing position. Recorded votes,
-        statements, and interpretations remain distinct. Reviewers must approve
-        evidence and explain interpretations. Conflicting evidence remains
+        statements, and interpretations remain distinct. Each provisional
+        mapping explains its evidence and interpretation. Conflicting evidence remains
         visible in the research record and reduces coverage when unresolved.
       </p>
       <Link className="text-link" href="/">

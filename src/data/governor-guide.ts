@@ -1,4 +1,5 @@
-import type { Candidate, Question, ResearchPacket } from "@/domain/comparison";
+import { researchPacketSchema, type Candidate, type Question } from "@/domain/comparison";
+import governorResearch from "./governor-research.json";
 
 export const governorCandidates: Candidate[] = [
   { id: "abbott", name: "Greg Abbott", party: "Republican", writeIn: false, website: "https://www.gregabbott.com/policy/" },
@@ -20,10 +21,8 @@ export const governorQuestions: Question[] = [
   { id: "testing-v1", topic: "School testing", statement: "Texas should end mandatory statewide standardized testing as the basis for school accountability.", context: "Replacing a named test while retaining another mandatory statewide test differs from ending this approach to accountability." },
 ];
 
-// No candidate mappings become public without an explicit human review of this version.
-export const publishedGovernorResearch: ResearchPacket = {
-  version: "governor-research-pending", review: { status: "pending", reviewer: null, reviewedAt: null }, positions: [], sources: [],
-};
+// The user authorized sourced provisional mappings for the small-group release.
+export const publishedGovernorResearch = researchPacketSchema.parse(governorResearch);
 
 export const rosterSources = {
   printed: "https://www.sos.state.tx.us/elections/forms/2026-ballot-cert.pdf",

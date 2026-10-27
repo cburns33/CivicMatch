@@ -1,6 +1,6 @@
 # CivicMatch TX handoff, October 27, 2026
 
-The user authorized a selected-race launch to serve the closing election window. The homepage is being released as a Texas governor guide with the full official race roster, original-source links, a seven-question questionnaire, answer/importance review, device-only storage, and a comparison engine. Real candidate-position mappings require human review before public display. The synthetic explorer moves to `/demo`. See [first-race release and review boundary](first-race-release.md).
+The user authorized a selected-race launch to serve the closing election window and clarified that the audience is the user and friends. The homepage now implements a Texas governor guide with the full official race roster, source links, seven questions, answer/importance review, device-only storage, and sourced provisional comparisons. The user authorized processing all public candidate-policy material and research rows, then removed the mandatory human-approval gate for this small-group version. AI-assisted mappings are labeled provisional, with no fabricated human review. The synthetic explorer is at `/demo`. See [first-race release](first-race-release.md).
 
 M2 remains in progress. County source/style blockers are deferred from the selected-race release and retain all existing publication guards. The [reviewer dashboard](https://civicmatch-tx.vercel.app/admin) retains source review, filtering, readiness, and mapping status, with a private research-preview entry point.
 
@@ -11,7 +11,7 @@ M2 remains in progress. County source/style blockers are deferred from the selec
 - Private normalized drafts preserve 445 voting contests, 681 printed/write-in entries, 131 measures, and eight declarations. Jurisdiction, district, office, election-type, seat, and vote-limit assignments remain incomplete. Travis has 430 assignment issues and Harris has 468; these counts are not confidence scores.
 - Both drafts have automated source-archive verification receipts covering all 59 contributing sources. No human source/mapping approvals or style attestations were added. There are zero official composition publications and zero active pointers.
 - The owner-only publisher and its guards are implemented. They require completed source reviews, an accepted complete mapping, exact archive checks, trusted official style evidence, review against the published baseline, and a matching expected active pointer. Reopened review evidence withdraws the pointer while retaining the immutable snapshot.
-- The M1 fixture explorer and foundation entity tables are not connected to the normalized packets. Canonical candidate identity and address eligibility remain unfinished. The selected-race questionnaire/scorer is separate from the normalized county packets; candidate mappings remain unpublished pending human review.
+- The M1 fixture explorer and foundation entity tables are not connected to the normalized packets. Canonical identity across county research and address eligibility remain unfinished. The selected-race questionnaire/scorer is separate from those packets. Provisional research version `tx-governor-2026-10-27-v2-provisional` has 15 mapped positions across 15 primary pages, five of seven questions for each printed candidate, plus two explicit unscored ambiguities. Four write-ins have no mapped positions yet and remain visible. Pending working drafts v1/v2 are retained in the private database; the public provisional packet is versioned in Git.
 
 ## Outstanding source evidence
 
@@ -21,9 +21,9 @@ M2 remains in progress. County source/style blockers are deferred from the selec
 
 ## Recommended next work
 
-1. Complete the authorized public-policy research read and prepare the private governor evidence packet. The AGENTS.md confirmation for more than five research rows is pending. The original brief also requires human review before candidate-position publication.
-2. Review the exact question mappings, exclusions, source dates, and coverage in the private preview. Release an attributed immutable approved research version only after that review. No draft positions belong in the public Git repository.
-3. Expand reviewed race coverage, preserving every qualified candidate and evidence gaps. County mapping editor, trusted style evidence, and address validation remain deferred work.
+1. Verify the live provisional release and collect the user's and friends' corrections to mappings. Preserve research versions and supporting source checksums. No per-position human approval is required for the authorized small-group release.
+2. Fill governor evidence gaps, including write-ins, and extend to the next selected statewide race. Keep the same questions and research standards across candidates, with unknowns visible.
+3. County mapping editor, trusted style evidence, and address validation remain deferred. Their separate publication controls remain in force.
 
 ## Verification and operating constraints
 

@@ -22,13 +22,13 @@ export type ResearchSource = {
   sha256: string; retrievedAt: string;
 };
 export type ResearchPacket = {
-  version: string; review: { status: "pending" | "approved"; reviewer: string | null; reviewedAt: string | null };
+  version: string; review: { status: "pending" | "provisional" | "approved"; reviewer: string | null; reviewedAt: string | null };
   positions: Position[]; sources: ResearchSource[];
 };
 
 export const researchPacketSchema: z.ZodType<ResearchPacket> = z.object({
   version: z.string().min(1).max(100),
-  review: z.object({ status: z.enum(["pending", "approved"]), reviewer: z.string().min(1).nullable(), reviewedAt: z.iso.datetime().nullable() }).strict(),
+  review: z.object({ status: z.enum(["pending", "provisional", "approved"]), reviewer: z.string().min(1).nullable(), reviewedAt: z.iso.datetime().nullable() }).strict(),
   positions: z.array(z.object({
     candidateId: z.string().min(1), questionId: z.string().min(1), value: z.number().int().min(1).max(5).nullable(),
     kind: z.enum(["documented_action", "recorded_statement"]),
@@ -42,6 +42,7 @@ export const researchPacketSchema: z.ZodType<ResearchPacket> = z.object({
 }).strict().superRefine((packet, ctx) => {
   const issue = (message: string) => ctx.addIssue({ code: "custom", message });
   if (packet.review.status === "approved" && (!packet.review.reviewer || !packet.review.reviewedAt)) issue("Human review attribution and date required.");
+  if (packet.review.status !== "approved" && (packet.review.reviewer !== null || packet.review.reviewedAt !== null)) issue("Provisional and pending packets cannot claim human review.");
   if (new Set(packet.sources.map((s) => s.id)).size !== packet.sources.length) issue("Source IDs must be unique.");
   if (new Set(packet.positions.map((p) => `${p.candidateId}:${p.questionId}`)).size !== packet.positions.length) issue("One resolved mapping per candidate and question required.");
   for (const position of packet.positions) {
@@ -67,9 +68,10 @@ export function restoreAnswers(raw: string | null, questions: Question[]): Answe
   } catch { return {}; }
 }
 
-// Draft calculations are available only in the authenticated review preview.
+// Pending drafts require the authenticated preview. The small-group release
+// accepts labeled provisional mappings without implying human approval.
 export function compareCandidate(candidateId: string, questions: Question[], answers: Answers, packet: ResearchPacket, preview = false) {
-  const eligible = packet.review.status === "approved" || preview;
+  const eligible = packet.review.status === "approved" || packet.review.status === "provisional" || preview;
   const positions = eligible ? packet.positions.filter((position) => position.candidateId === candidateId && position.value !== null && !position.conflict && position.confidence !== "limited" && position.sourceIds.length > 0 && position.sourceIds.every((id) => packet.sources.some((source) => source.id === id))) : [];
   const answered = questions.filter((question) => answers[question.id]?.state === "answered");
   const comparable = answered.flatMap((question) => {

@@ -1,6 +1,6 @@
 # Proposed scoring methodology, version 1
 
-This document defines a proposal for later implementation. M1 ships schemas and configuration, with no scoring engine, quiz, or candidate results. The model does not claim to reproduce iSideWith’s formula.
+The selected governor guide now implements this weighted-distance method. On October 27 the user clarified that the audience is the user and friends and authorized sourced AI-assisted provisional candidate mappings without mandatory human approval. The guide labels provisional results and keeps source rationale, coverage, ambiguities, and confidence separate. References below to approved candidate evidence describe the original reviewed-release design; this authorized prototype also admits versioned provisional evidence. Pending unpublished drafts, unresolved conflicts, limited evidence, and motives remain excluded. The model does not claim to reproduce iSideWith's formula.
 
 ## Inputs and states
 

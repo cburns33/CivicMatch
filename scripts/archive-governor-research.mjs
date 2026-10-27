@@ -14,6 +14,10 @@ const sources = [
   ["dixon-death", "Dixon death penalty statement", "https://patdixon.org/death-penalty/", "2026-10-13"],
   ["dixon-abortion", "Dixon abortion statement", "https://patdixon.org/abortion/", "2026-09-21"],
   ["dixon-voter", "Dixon response to a voter", "https://patdixon.org/response-to-a-voter-10-23-26/", "2026-10-26"],
+  ["abbott-abortion-history", "HB 1280 signing history", "https://capitol.texas.gov/BillLookup/History.aspx?LegSess=87R&Bill=HB1280", "2021-06-16"],
+  ["abbott-abortion-text", "HB 1280 enrolled text", "https://capitol.texas.gov/tlodocs/87R/billtext/html/HB01280F.htm", "2021-06-16"],
+  ["abbott-testing", "TEA overview of HB 8", "https://tea2.tea.texas.gov/taa-letters/overview-house-bill-8", "2025-10-23"],
+  ["abbott-death", "Abbott State of the State address", "https://gov.texas.gov/news/post/governor-abbott-delivers-2025-state-of-the-state-address", "2025-02-02"],
 ];
 await mkdir("data/official/governor-research", { recursive: true });
 const receipts = [];

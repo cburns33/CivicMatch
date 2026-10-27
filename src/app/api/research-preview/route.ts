@@ -15,7 +15,7 @@ export async function GET(request: Request) {
     if (identityError || !identity.user) return Response.json({ error: "Reviewer sign-in required." }, { status: 401, headers });
     const access = await client.rpc("is_composition_reviewer");
     if (access.error || access.data !== true) return Response.json({ error: "Reviewer access required." }, { status: 403, headers });
-    const result = await client.from("race_guide_drafts").select("payload,sha256").eq("version", "tx-governor-2026-10-27-v1").maybeSingle();
+    const result = await client.from("race_guide_drafts").select("payload,sha256").eq("version", "tx-governor-2026-10-27-v2").maybeSingle();
     if (result.error || !result.data) return Response.json({ error: "The research draft is not available yet." }, { status: 503, headers });
     const payload = researchPacketSchema.parse(result.data.payload);
     return Response.json({ payload, sha256: result.data.sha256 }, { headers });

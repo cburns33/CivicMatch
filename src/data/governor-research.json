@@ -1,0 +1,372 @@
+{
+  "version": "tx-governor-2026-10-27-v2-provisional",
+  "review": {
+    "status": "provisional",
+    "reviewer": null,
+    "reviewedAt": null
+  },
+  "positions": [
+    {
+      "candidateId": "abbott",
+      "questionId": "abortion-v1",
+      "value": 2,
+      "kind": "documented_action",
+      "summary": "Abbott signed HB 1280 on June 16, 2021. Its enrolled text prohibits abortion subject to specified medical exceptions.",
+      "rationale": "The signed prohibition supplies evidence against general elective access before viability.",
+      "limitations": "This is a dated legislative action. It does not establish his position on every possible exception, or summarize the complete current law.",
+      "sourceIds": [
+        "abbott-abortion-history",
+        "abbott-abortion-text"
+      ],
+      "confidence": "qualified",
+      "conflict": false
+    },
+    {
+      "candidateId": "abbott",
+      "questionId": "testing-v1",
+      "value": 2,
+      "kind": "documented_action",
+      "summary": "Abbott signed HB 8 in September 2025. TEA describes its replacement of STAAR with shorter statewide assessments while retaining test-based accountability.",
+      "rationale": "Replacing one test while preserving statewide assessments and accountability supports a disagree mapping on ending this approach.",
+      "limitations": "This maps the enacted assessment framework. It does not imply support for every former STAAR rule, and implementation begins in a later school year.",
+      "sourceIds": [
+        "abbott-testing"
+      ],
+      "confidence": "qualified",
+      "conflict": false
+    },
+    {
+      "candidateId": "abbott",
+      "questionId": "death-v1",
+      "value": 2,
+      "kind": "recorded_statement",
+      "summary": "In his 2025 State of the State address, Abbott called for death-penalty legislation for people convicted of murdering a child.",
+      "rationale": "Calling for this use of capital punishment is inconsistent with abolishing it.",
+      "limitations": "This records a stated legislative priority. It does not imply support for execution in every eligible case or opposition to individual clemency.",
+      "sourceIds": [
+        "abbott-death"
+      ],
+      "confidence": "qualified",
+      "conflict": false
+    },
+    {
+      "candidateId": "abbott",
+      "questionId": "vouchers-v1",
+      "value": 4,
+      "kind": "documented_action",
+      "summary": "Abbott signed SB 2 creating education savings accounts for eligible education expenses, including private tuition.",
+      "rationale": "Signing and advocating for this program supports an agree mapping on public funding for private tuition.",
+      "limitations": "The signing establishes support for the enacted program. It does not establish support for every possible eligibility rule or funding level.",
+      "sourceIds": [
+        "abbott-vouchers"
+      ],
+      "confidence": "qualified",
+      "conflict": false
+    },
+    {
+      "candidateId": "abbott",
+      "questionId": "tax-v1",
+      "value": 4,
+      "kind": "recorded_statement",
+      "summary": "Abbott proposes a constitutional vote to remove school district taxes from homeowners and shift responsibility for school funding to the state.",
+      "rationale": "His campaign describes the funding change asked about in this question.",
+      "limitations": "This is a campaign proposal. The source does not establish enactment, a completed replacement budget, or its effect on every homeowner.",
+      "sourceIds": [
+        "abbott-policy"
+      ],
+      "confidence": "qualified",
+      "conflict": false
+    },
+    {
+      "candidateId": "hinojosa",
+      "questionId": "vouchers-v1",
+      "value": 2,
+      "kind": "recorded_statement",
+      "summary": "Hinojosa proposes ending the voucher program and directing education funds to public schools.",
+      "rationale": "Her school-policy page opposes the public private-tuition funding in this question.",
+      "limitations": "This records her stated policy. It does not verify the campaign's claims about beneficiaries, donors, or program effects.",
+      "sourceIds": [
+        "hinojosa-schools"
+      ],
+      "confidence": "qualified",
+      "conflict": false
+    },
+    {
+      "candidateId": "hinojosa",
+      "questionId": "tax-v1",
+      "value": 4,
+      "kind": "recorded_statement",
+      "summary": "Hinojosa proposes cutting property taxes using savings from ending corporate subsidies, with eventual elimination of residential property taxes while funding schools.",
+      "rationale": "Her broader residential-tax goal includes school taxes on homes, and she proposes replacing corporate subsidies with school funding. This supports a provisional agree mapping.",
+      "limitations": "The goal is broader than this question and supplies no complete replacement budget. Details of the state/local funding transition remain unspecified.",
+      "sourceIds": [
+        "hinojosa-economy"
+      ],
+      "confidence": "qualified",
+      "conflict": false
+    },
+    {
+      "candidateId": "hinojosa",
+      "questionId": "housing-v1",
+      "value": 4,
+      "kind": "recorded_statement",
+      "summary": "Hinojosa proposes restricting private-equity purchases of single-family homes and cites a bill limiting institutional investors to ten homes.",
+      "rationale": "This supports a general limit on large investor purchases.",
+      "limitations": "The campaign page describes proposals and an authored bill. Bill enactment and the claimed effect on housing prices are not established here.",
+      "sourceIds": [
+        "hinojosa-economy"
+      ],
+      "confidence": "qualified",
+      "conflict": false
+    },
+    {
+      "candidateId": "hinojosa",
+      "questionId": "abortion-v1",
+      "value": 4,
+      "kind": "recorded_statement",
+      "summary": "Hinojosa's January statement supports ending Texas's abortion ban and protecting patients' reproductive decisions with their doctors.",
+      "rationale": "This supplies proposed support for general access before viability.",
+      "limitations": "The statement supports reproductive choice and ending the ban, with no specific gestational cutoff or detailed bill. The before-viability mapping is an interpretation of that general position. Later-pregnancy policy remains unassigned.",
+      "sourceIds": [
+        "hinojosa-abortion"
+      ],
+      "confidence": "qualified",
+      "conflict": false
+    },
+    {
+      "candidateId": "hinojosa",
+      "questionId": "testing-v1",
+      "value": 4,
+      "kind": "recorded_statement",
+      "summary": "Hinojosa proposes ending STAAR and similar tests, pausing A-F accountability, and seeking a replacement accountability law.",
+      "rationale": "Her proposed shift away from high-stakes statewide tests supports this question.",
+      "limitations": "The source does not describe a complete replacement accountability system or opposition to every form of student assessment.",
+      "sourceIds": [
+        "hinojosa-schools"
+      ],
+      "confidence": "qualified",
+      "conflict": false
+    },
+    {
+      "candidateId": "hinojosa",
+      "questionId": "death-v1",
+      "value": null,
+      "kind": "recorded_statement",
+      "summary": "In an October interview, Hinojosa expressed personal opposition to the death penalty while reserving case-by-case decisions as governor.",
+      "rationale": "Personal belief and the governor's handling of cases do not establish support for legislative abolition. Exclude this question from scoring.",
+      "limitations": "The interview leaves the legislative-repeal question unresolved. Neither neutral nor a repeal position is assigned.",
+      "sourceIds": [
+        "hinojosa-death"
+      ],
+      "confidence": "limited",
+      "conflict": false
+    },
+    {
+      "candidateId": "dixon",
+      "questionId": "vouchers-v1",
+      "value": 4,
+      "kind": "recorded_statement",
+      "summary": "Dixon supports a statewide scholarship of equal value for each child to attend a school of the family's choice.",
+      "rationale": "The proposed portable public scholarship supports private-school tuition funding.",
+      "limitations": "His preferred program differs from the current program. This mapping does not endorse every feature of the enacted law or its claimed outcomes.",
+      "sourceIds": [
+        "dixon-schools"
+      ],
+      "confidence": "qualified",
+      "conflict": false
+    },
+    {
+      "candidateId": "dixon",
+      "questionId": "housing-v1",
+      "value": 2,
+      "kind": "recorded_statement",
+      "summary": "Asked about restricting large investment-company purchases of single-family homes, Dixon opposes interference with voluntary property transactions.",
+      "rationale": "The answer opposes the purchase limits in this question.",
+      "limitations": "This is Dixon's answer, following a separately quoted voter question. His support for enforcing fraud laws is retained and does not establish support for a purchase cap.",
+      "sourceIds": [
+        "dixon-voter"
+      ],
+      "confidence": "qualified",
+      "conflict": false
+    },
+    {
+      "candidateId": "dixon",
+      "questionId": "cannabis-v1",
+      "value": 4,
+      "kind": "recorded_statement",
+      "summary": "Dixon's cannabis questionnaire supports legal adult recreational use.",
+      "rationale": "The answer addresses adult recreational legalization directly.",
+      "limitations": "His answers preserve penalties for impaired driving and distinguish adult choice from youth access. This mapping does not infer a tax or licensing model.",
+      "sourceIds": [
+        "dixon-cannabis"
+      ],
+      "confidence": "qualified",
+      "conflict": false
+    },
+    {
+      "candidateId": "dixon",
+      "questionId": "death-v1",
+      "value": 4,
+      "kind": "recorded_statement",
+      "summary": "Dixon states that he would support repeal of the death penalty and work with the Legislature.",
+      "rationale": "This addresses abolition as public policy, beyond personal opposition.",
+      "limitations": "The statement is a proposal. It supplies no evidence of a completed legislative repeal or ability to achieve one.",
+      "sourceIds": [
+        "dixon-death"
+      ],
+      "confidence": "qualified",
+      "conflict": false
+    },
+    {
+      "candidateId": "dixon",
+      "questionId": "testing-v1",
+      "value": 4,
+      "kind": "recorded_statement",
+      "summary": "Dixon advocates parent-led accountability and removal of politically imposed testing mandates.",
+      "rationale": "His proposed accountability approach supports ending mandated test-based accountability.",
+      "limitations": "The source gives no replacement testing statute. The mapping interprets his stated preference for parental accountability and ending testing mandates; it does not imply opposition to voluntary assessments.",
+      "sourceIds": [
+        "dixon-schools"
+      ],
+      "confidence": "qualified",
+      "conflict": false
+    },
+    {
+      "candidateId": "dixon",
+      "questionId": "abortion-v1",
+      "value": null,
+      "kind": "recorded_statement",
+      "summary": "Dixon describes himself as pro-life, supports keeping politicians out of difficult medical decisions, and leaves some exceptions unresolved. His later response proposes no additional restrictions.",
+      "rationale": "These statements do not resolve a general pre-viability access policy. Exclude the question from scoring.",
+      "limitations": "The abortion-homicide language on the later page belongs to the voter asking the question. It must not be attributed to Dixon. The page title and displayed publication date also differ.",
+      "sourceIds": [
+        "dixon-abortion",
+        "dixon-voter"
+      ],
+      "confidence": "limited",
+      "conflict": false
+    }
+  ],
+  "sources": [
+    {
+      "id": "abbott-policy",
+      "title": "Abbott campaign policy",
+      "url": "https://www.gregabbott.com/policy/",
+      "publishedAt": null,
+      "sha256": "9df6a143ce8eb3a1ea292f5174164da6c80bc24ca54d3d96ca4d0ca0db290892",
+      "retrievedAt": "2026-10-27T13:50:29.011Z"
+    },
+    {
+      "id": "abbott-vouchers",
+      "title": "Governor's SB 2 signing record",
+      "url": "https://gov.texas.gov/news/post/governor-abbott-signs-landmark-school-choice-legislation-into-law",
+      "publishedAt": "2025-05-03",
+      "sha256": "397597c84747ab5af5d69d931a8fcbc6d4f571afe9ced6c61d82d5157c33ad17",
+      "retrievedAt": "2026-10-27T13:50:52.041Z"
+    },
+    {
+      "id": "hinojosa-schools",
+      "title": "Hinojosa school policy",
+      "url": "https://ginafortexas.com/priority/save-texas-public-schools/",
+      "publishedAt": null,
+      "sha256": "2fd4b48af161bdb3639fa6f250e9d337264eb07810a40aba84c5a1090fdb0cd4",
+      "retrievedAt": "2026-10-27T13:50:52.169Z"
+    },
+    {
+      "id": "hinojosa-economy",
+      "title": "Hinojosa economic policy",
+      "url": "https://ginafortexas.com/priority/an-affordable-texas-that-works-for-everyone/",
+      "publishedAt": null,
+      "sha256": "4342815e32d6a9cb1c9a3e21b642694233d527fcd5fcd24f349098756117bdee",
+      "retrievedAt": "2026-10-27T13:50:52.228Z"
+    },
+    {
+      "id": "hinojosa-abortion",
+      "title": "Hinojosa reproductive policy statement",
+      "url": "https://ginafortexas.com/2026/01/on-anniversary-of-roe-v-wade-gina-hinojosa-shares-her-story-and-commitment-to-restore-reproductive-freedom/",
+      "publishedAt": "2026-01-20",
+      "sha256": "20c5ef8fb0369300b4943950b6991045fce854742892f37d9b85fb27be18f3bf",
+      "retrievedAt": "2026-10-27T13:50:52.290Z"
+    },
+    {
+      "id": "hinojosa-death",
+      "title": "Hinojosa CNN interview",
+      "url": "https://transcripts.cnn.com/show/arena/date/2026-10-08/segment/01",
+      "publishedAt": "2026-10-08",
+      "sha256": "df582b93136b7041335332aaca58133852a6d8d339e404b5f30fe0da329142f0",
+      "retrievedAt": "2026-10-27T13:50:52.523Z"
+    },
+    {
+      "id": "dixon-schools",
+      "title": "Dixon school policy",
+      "url": "https://patdixon.org/school-choice/",
+      "publishedAt": "2026-05-28",
+      "sha256": "8427b180b0bf241b5a552d03edcef0d7ccad777187d36bd49934d3f097bed319",
+      "retrievedAt": "2026-10-27T13:50:52.793Z"
+    },
+    {
+      "id": "dixon-cannabis",
+      "title": "Dixon cannabis questionnaire",
+      "url": "https://patdixon.org/texas-cannabis-policy-questionnaire/",
+      "publishedAt": "2026-09-29",
+      "sha256": "bf6d11b3e9a61fbd0a0e2473b0092861d1e482511bb8b4f4ed2f623a4f9116b4",
+      "retrievedAt": "2026-10-27T13:50:52.924Z"
+    },
+    {
+      "id": "dixon-death",
+      "title": "Dixon death penalty statement",
+      "url": "https://patdixon.org/death-penalty/",
+      "publishedAt": "2026-10-13",
+      "sha256": "726cc03fc7de93ff4568f9adcbfd8d5d37edcc607d923d3c2402b0e17ac07c2c",
+      "retrievedAt": "2026-10-27T13:50:53.042Z"
+    },
+    {
+      "id": "dixon-abortion",
+      "title": "Dixon abortion statement",
+      "url": "https://patdixon.org/abortion/",
+      "publishedAt": "2026-09-21",
+      "sha256": "240d7838e1b8f045f6f48d270d794218e4d07bf65aaf2c383ed2add44cdd8dd4",
+      "retrievedAt": "2026-10-27T13:50:53.166Z"
+    },
+    {
+      "id": "dixon-voter",
+      "title": "Dixon response to a voter",
+      "url": "https://patdixon.org/response-to-a-voter-10-23-26/",
+      "publishedAt": "2026-10-26",
+      "sha256": "b8b1c8c0b5cac0a8fb4e4bf74df7ebcde7aa1491c6df2ea4b0520b3162547d71",
+      "retrievedAt": "2026-10-27T13:50:53.283Z"
+    },
+    {
+      "id": "abbott-abortion-history",
+      "title": "HB 1280 signing history",
+      "url": "https://capitol.texas.gov/BillLookup/History.aspx?LegSess=87R&Bill=HB1280",
+      "publishedAt": null,
+      "sha256": "66cb5af0502348387da2977558e6ad22ca4b306be37157c5b53f181ad7f551b0",
+      "retrievedAt": "2026-10-27T13:50:53.403Z"
+    },
+    {
+      "id": "abbott-abortion-text",
+      "title": "HB 1280 enrolled text",
+      "url": "https://capitol.texas.gov/tlodocs/87R/billtext/html/HB01280F.htm",
+      "publishedAt": null,
+      "sha256": "81c5f22925708224f7891fcfefcb3b2088aa8752f0d6ecef3803a21b103a7a61",
+      "retrievedAt": "2026-10-27T13:50:53.628Z"
+    },
+    {
+      "id": "abbott-testing",
+      "title": "TEA overview of HB 8",
+      "url": "https://tea2.tea.texas.gov/taa-letters/overview-house-bill-8",
+      "publishedAt": "2025-10-23",
+      "sha256": "2ab07765a9535b1bd65132175639d5e5b62ed8fc0bd30d41fa71b9dadadb1caa",
+      "retrievedAt": "2026-10-27T13:50:59.062Z"
+    },
+    {
+      "id": "abbott-death",
+      "title": "Abbott State of the State address",
+      "url": "https://gov.texas.gov/news/post/governor-abbott-delivers-2025-state-of-the-state-address",
+      "publishedAt": "2025-02-02",
+      "sha256": "ec3fcf9d51407e1b6f36d3e5f442733086bbd007570e1ce705891cafe3816887",
+      "retrievedAt": "2026-10-27T13:51:22.628Z"
+    }
+  ]
+}

@@ -19,7 +19,7 @@ test("governor guide includes every certified name and saves a private questionn
   await expect(page.getByText("Most important", { exact: true })).toHaveCount(2);
   await page.getByRole("button", { name: "See comparison", exact: true }).click();
   await expect(page.getByText("Insufficient information", { exact: true })).toHaveCount(7);
-  await expect(page.getByText("Position review is pending.", { exact: true })).toBeVisible();
+  await expect(page.getByText("Friends early access.", { exact: true })).toBeVisible();
   await page.reload();
   await page.getByRole("button", { name: "Continue your questions", exact: true }).click();
   await expect(groups.nth(0).getByRole("radio", { name: "Neither agree nor disagree", exact: true })).toBeChecked();
@@ -40,4 +40,23 @@ test("public research access is denied and corrupt device data is recoverable", 
   await page.addInitScript(() => localStorage.setItem("civicmatch:governor-questions-v1", "corrupt"));
   await page.goto("/"); await page.getByRole("button", { name: "Answer seven questions" }).click();
   await expect(page.getByText("0 of 7 answered · 0 skipped", { exact: true })).toBeVisible();
+});
+
+test("complete answers yield sourced provisional comparisons in candidate order", async ({ page }) => {
+  await page.goto("/");
+  await page.getByRole("button", { name: "Answer seven questions", exact: true }).click();
+  for (const group of await page.getByRole("group").all()) await group.getByRole("radio", { name: "Agree", exact: true }).check();
+  await page.getByRole("button", { name: "Review answers", exact: true }).click();
+  await expect(page.getByText("7 answered, including 0 neutral · 0 skipped · 0 unanswered.", { exact: true })).toBeVisible();
+  await page.getByRole("button", { name: "See comparison", exact: true }).click();
+  const candidates = page.locator(".race-candidate-grid > article");
+  await expect(candidates.nth(0).getByText("70% policy agreement (provisional)", { exact: true })).toBeVisible();
+  await expect(candidates.nth(1).getByText("90% policy agreement (provisional)", { exact: true })).toBeVisible();
+  await expect(candidates.nth(2).getByText("90% policy agreement (provisional)", { exact: true })).toBeVisible();
+  await expect(page.getByText("Insufficient information", { exact: true })).toHaveCount(4);
+  await candidates.nth(0).getByText("School funding: Agree", { exact: true }).click();
+  await expect(candidates.nth(0).getByRole("link", { name: "Governor's SB 2 signing record", exact: false })).toHaveAttribute("href", /gov\.texas\.gov/);
+  await candidates.nth(1).getByText("Criminal justice: No mapped position", { exact: true }).click();
+  await expect(candidates.nth(1).getByText("Personal belief and the governor's handling of cases", { exact: false })).toBeVisible();
+  expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
 });

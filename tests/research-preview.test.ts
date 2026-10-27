@@ -31,7 +31,7 @@ describe("private research preview endpoint", () => {
     const response = await GET(request("Bearer synthetic"));
     expect(response.status).toBe(200); expect(response.headers.get("cache-control")).toBe("private, no-store"); expect(response.headers.get("vary")).toBe("Authorization");
     expect(mocks.getUser).toHaveBeenCalledWith("synthetic"); expect(mocks.rpc).toHaveBeenCalledWith("is_composition_reviewer");
-    expect(mocks.eq).toHaveBeenCalledWith("version", "tx-governor-2026-10-27-v1");
+    expect(mocks.eq).toHaveBeenCalledWith("version", "tx-governor-2026-10-27-v2");
     expect(await response.json()).toEqual({ payload, sha256: "a".repeat(64) });
   });
   it("fails closed on revoked access, hidden rows, invalid packets, and service failures", async () => {

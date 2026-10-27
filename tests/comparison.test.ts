@@ -13,7 +13,8 @@ describe("selected-race comparison and coverage", () => {
   it("keeps all three printed candidates and four certified write-ins in source order", () => {
     expect(governorCandidates.map((c) => c.name)).toEqual(["Greg Abbott", "Gina Hinojosa", "Pat Dixon", "Edward Earl Giles", "Jenn Mack", "Jinghpaw Majoishingra", "Mike Miller"]);
     expect(governorCandidates.filter((c) => c.writeIn)).toHaveLength(4);
-    expect(publishedGovernorResearch.positions).toEqual([]);
+    expect(publishedGovernorResearch.review.status).toBe("provisional");
+    expect(researchPacketSchema.safeParse(publishedGovernorResearch).success).toBe(true);
   });
   it("calculates weighted distance and equal-weight sensitivity without evidence multipliers", () => {
     const answers = responses();
@@ -53,6 +54,22 @@ describe("selected-race comparison and coverage", () => {
     const draft = packet(); draft.review = { status: "pending", reviewer: null, reviewedAt: null };
     expect(compareCandidate("test", questions, responses(), draft)).toMatchObject({ research: 0, comparable: 0, percent: null });
     expect(compareCandidate("test", questions, responses(), draft, true).percent).toBe(100);
+  });
+  it("supports explicitly labeled provisional research without claiming human approval", () => {
+    const provisional = packet(); provisional.review = { status: "provisional", reviewer: null, reviewedAt: null };
+    expect(researchPacketSchema.safeParse(provisional).success).toBe(true);
+    expect(compareCandidate("test", questions, responses(), provisional).percent).toBe(100);
+    provisional.review.reviewer = "SYNTHETIC";
+    expect(researchPacketSchema.safeParse(provisional).success).toBe(false);
+  });
+  it("has five sourced mappings per printed candidate and preserves ambiguous exclusions", () => {
+    for (const candidate of governorCandidates.slice(0, 3)) {
+      expect(compareCandidate(candidate.id, questions, responses(), publishedGovernorResearch)).toMatchObject({ research: 5, comparable: 5 });
+      expect(compareCandidate(candidate.id, questions, responses(), publishedGovernorResearch).percent).not.toBeNull();
+    }
+    for (const candidate of governorCandidates.slice(3)) expect(compareCandidate(candidate.id, questions, responses(), publishedGovernorResearch).percent).toBeNull();
+    for (const [candidateId, questionId] of [["hinojosa", "death-v1"], ["dixon", "abortion-v1"]]) expect(publishedGovernorResearch.positions.find((p) => p.candidateId === candidateId && p.questionId === questionId)?.value).toBeNull();
+    expect(publishedGovernorResearch.review).toEqual({ status: "provisional", reviewer: null, reviewedAt: null });
   });
   it("gates the high-priority subset and shows weighted coverage separately", () => {
     const answers = responses();
