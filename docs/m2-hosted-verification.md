@@ -41,6 +41,10 @@ Twenty-two live checks pass across these behaviors:
 
 Repeated hosted imports reuse the same run identities and leave two batches and 679 tasks. These checks exercise actual hosted Auth, JWT verification, grants, RLS, and RPC behavior. They extend the PGlite suite and mocked browser tests.
 
+## Deployed reviewer screen
+
+Code commit `b1a28d0dd2179ea29e69c50a450542c1ee788f2b` triggered Vercel production deployment `dpl_84yUfnEAj9BUzzjUx4aVmerF22k6`, READY at [the reviewer screen](https://civicmatch-tx.vercel.app/admin). Real desktop and mobile checks verified HTTP 200, reviewer sign-in, both county task counts, county switching, no horizontal overflow, and removal of draft content on sign-out. No decisions were saved. Verification images and reports are in ignored `output/hosted-setup/`.
+
 ## Advisors and remaining limits
 
 The three exposed privileged-function warnings were resolved. The performance advisor reports no warnings or errors. The security advisor retains one provider warning: leaked-password protection is disabled. Supabase documents that feature as [Pro and above](https://supabase.com/docs/guides/auth/password-security); it was left off to honor the Free-only restriction. The provisioned reviewer uses a generated password, public signup is disabled, and existing provider MFA settings were preserved.
