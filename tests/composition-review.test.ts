@@ -45,6 +45,20 @@ describe("private composition import and review queue", () => {
   });
   afterEach(async () => { await db.exec("rollback"); });
 
+  it("accepts the official portal workbook as supporting evidence", async () => {
+    const payload = packet();
+    payload.documents.push({ source: { sha256: "c".repeat(64), county: "travis", kind: "supporting_reference",
+      mediaType: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+      url: "https://goelect.txelections.civixapps.com/ivis-cbp-ui/candidate-information" } as typeof payload.documents[0]["source"],
+      pages: [{page: 1}], issues: [] });
+    await stage(payload);
+    expect((await db.query("select count(*)::int as n from composition_review_tasks where kind='source'")).rows[0]).toEqual({ n: 2 });
+  });
+  it("rejects workbooks supplied as county masters", async () => {
+    const payload = packet();
+    payload.documents[0].source.mediaType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+    await expect(stage(payload)).rejects.toThrow(/Invalid contributing source/);
+  });
   it("imports once, preserves removals, and refuses changed bytes under the same run identity", async () => {
     await stage(); await stage();
     const result = await db.query<{ kind: string }>("select kind from composition_review_tasks");

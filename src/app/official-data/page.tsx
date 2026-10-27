@@ -1,10 +1,14 @@
 import Link from "next/link";
 import { ArrowUpRight, FileText, Info } from "lucide-react";
 import rawStatus from "@/data/official-source-status.json";
-import { officialIntakeSchema } from "@/domain/official-intake";
+import rawStyles from "@/data/official-style-status.json";
+import { officialIntakeSchema, officialStyleStatusSchema } from "@/domain/official-intake";
 
 export const metadata = { title: "Official source intake" };
 const status = officialIntakeSchema.parse(rawStatus);
+const styles = officialStyleStatusSchema.parse(rawStyles);
+if (styles.counties.some((c) => !status.counties.some((s) => s.county === c.county && s.runId === c.runId)))
+  throw new Error("Style report must match the current county imports.");
 const sourceLabels = {
   master_ballot: "Consolidated sample ballot",
   write_ins: "Write-in candidate notice",
@@ -81,8 +85,7 @@ export default function OfficialData() {
                 {source.kind === "supporting_reference" ? source.title : sourceLabels[source.kind]}
               </h3>
               <p>
-                {source.pageCount} pages archived · {source.pagesWithText} pages
-                with extractable text · Retrieved{" "}
+                {source.extractionScope === "filtered_workbook" ? `${source.pageCount} worksheet archived · Filtered official candidate export` : `${source.pageCount} pages archived · ${source.pagesWithText} pages with extractable text`} · Retrieved{" "}
                 {new Intl.DateTimeFormat("en-US", {
                   year: "numeric",
                   month: "short",
@@ -91,6 +94,7 @@ export default function OfficialData() {
                 }).format(new Date(source.retrievedAt))}
               </p>
               {source.extractionScope === "targeted_first_page" && <p>Scope review uses page 1. The complete PDF is archived; other reference pages remain outside this targeted extraction.</p>}
+              {source.extractionScope === "filtered_workbook" && <p>The archived source is the portal’s unchanged workbook export. To reproduce it, select 2026, November General Election, County, Travis, and County Clerk, then choose Export results. The source link opens the portal.</p>}
               <div className="official-source-links">
                 <a href={source.url} target="_blank" rel="noreferrer">
                   Open official document{" "}
@@ -106,7 +110,7 @@ export default function OfficialData() {
               <details>
                 <summary>Source checksum and retrieval details</summary>
                 <dl>
-                  <dt>SHA-256 of archived PDF bytes</dt>
+                  <dt>SHA-256 of archived source bytes</dt>
                   <dd className="source-checksum">{source.sha256}</dd>
                   <dt>Retrieved at (UTC)</dt>
                   <dd>{source.retrievedAt}</dd>
@@ -151,6 +155,18 @@ export default function OfficialData() {
           </details>
         </section>
       ))}
+      <h2>Ballot style validation</h2>
+      {styles.counties.map((county) => <p key={county.county}>
+        <strong>{county.county === "travis" ? "Travis County" : "Harris County"}:</strong>{" "}
+        {county.referenceCount} individual style references checked, {county.officiallyVerifiedCount} verified styles,
+        and {county.addressFixtureCount} verified address examples. Personalized ballots remain unavailable.
+      </p>)}
+      <p>
+        The current county lookup forms use voter information. Public style references
+        are still needed to check which contests belong together without accessing voter records.
+        Automated comparisons check contest order, candidate names, write-ins, voting instructions,
+        proposition wording, and electorate variants. Human review is required before use.
+      </p>
       <h2>Review before use.</h2>
       <p>
         Staged candidate records remain outside the public ballot explorer until

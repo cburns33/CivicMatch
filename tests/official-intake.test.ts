@@ -1,19 +1,32 @@
 import { describe, expect, it } from "vitest";
 import status from "../src/data/official-source-status.json";
 import { officialIntakeSchema } from "../src/domain/official-intake";
+import styles from "../src/data/official-style-status.json";
+import { officialStyleStatusSchema } from "../src/domain/official-intake";
 
 describe("official intake publication boundary", () => {
   const copy = () => structuredClone(status);
+  it("keeps style coverage tied to the current imports and blocks unverified eligibility", () => {
+    const coverage = officialStyleStatusSchema.parse(styles);
+    for (const county of coverage.counties) {
+      expect(county.runId).toBe(status.counties.find((c) => c.county === county.county)!.runId);
+      expect(county.referenceCount).toBe(0);
+      expect(county.status).toBe("blocked");
+    }
+    const invalid = structuredClone(styles);
+    invalid.counties[0].officiallyVerifiedCount = 1;
+    expect(officialStyleStatusSchema.safeParse(invalid).success).toBe(false);
+  });
   it("accounts for both counties and all archived source pages", () => {
     const intake = officialIntakeSchema.parse(status);
     expect(intake.counties.map((c) => c.county).sort()).toEqual([
       "harris",
       "travis",
     ]);
-    expect(intake.counties.reduce((n, c) => n + c.sources.length, 0)).toBe(58);
+    expect(intake.counties.reduce((n, c) => n + c.sources.length, 0)).toBe(59);
     expect(
       intake.counties.reduce(
-        (n, c) => n + c.sources.reduce((sum, s) => sum + s.pageCount, 0),
+        (n, c) => n + c.sources.filter((s) => s.mediaType === "application/pdf").reduce((sum, s) => sum + s.pageCount, 0),
         0,
       ),
     ).toBe(317);
@@ -29,7 +42,7 @@ describe("official intake publication boundary", () => {
       intake.counties.reduce((n, c) => n + c.stagedCandidateCount, 0),
     ).toBe(655);
     expect(intake.counties.reduce((n, c) => n + c.stagedMeasureCount, 0)).toBe(131);
-    expect(intake.counties.reduce((n, c) => n + c.matchedWriteInCount, 0)).toBe(25);
+    expect(intake.counties.reduce((n, c) => n + c.matchedWriteInCount, 0)).toBe(26);
     expect(intake.counties.reduce((n, c) => n + c.cancellationScopeCount, 0)).toBe(82);
     expect(intake.counties.every((c) => c.sourceChoiceCount === c.assignedChoiceCount)).toBe(true);
     expect(intake.counties.find((c) => c.county === "travis")!.scopeSupportedMeasureCount).toBe(4);

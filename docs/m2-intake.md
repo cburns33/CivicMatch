@@ -12,17 +12,17 @@ Sources come from [Travis County's current election page](https://votetravis.gov
 | Harris | 3 | 18 | 193 | 394 | 38 | 6 |
 | Total | 58 | 317 | 314 | 655 | 131 | 8 |
 
-Travis's inventory consists of its 18-page master, 51 cancellation PDFs totaling 272 pages, the one-page statewide/district write-in certification, and two scope-reference orders totaling eight pages. The added orders are below 1 MB and use targeted page-1 extraction. Harris's inventory consists of its 14-page master, one-page write-in list, and three-page cancellation list. HTML discovery pages and retrieval receipts are archived too. Every Travis November cancellation index link must appear in the manifest before the command can stage a run.
+Travis's inventory consists of its 18-page master, 51 cancellation PDFs totaling 272 pages, the one-page statewide/district write-in certification, and two scope-reference orders totaling eight pages. The added orders are below 1 MB and use targeted page-1 extraction. Harris's inventory consists of its 14-page master, one-page write-in list, and three-page cancellation list. A further official portal workbook contains one worksheet and two candidate rows. It supplies named County Clerk write-in qualification evidence; contact fields are excluded from staging. This makes 59 contributing sources: 58 PDFs and one XLSX. HTML discovery pages and retrieval receipts are archived too. Every Travis November cancellation index link must appear in the manifest before the command can stage a run.
 
-The `county-reference-v3` adapter accounts for all 452 Travis and 476 Harris printed choice symbols across all 128 master-page columns. Source-region coverage is an extraction check. It cannot establish a complete personalized ballot. Records preserve printed labels, party labels, order, multi-seat voting instructions, English/Spanish proposition wording, response options, raw regions, page/column/bounds, and document checksums. Declaration blocks remain distinct from voting contests. No global candidate identities are merged.
+The `county-reference-v4` adapter accounts for all 452 Travis and 476 Harris printed choice symbols across all 128 master-page columns. Source-region coverage is an extraction check. It cannot establish a complete personalized ballot. Records preserve printed labels, party labels, order, multi-seat voting instructions, English/Spanish proposition wording, response options, raw regions, page/column/bounds, and document checksums. Declaration blocks remain distinct from voting contests. No global candidate identities are merged.
 
 The initial `federal-reference-v1` pass staged 15 federal contests and 34 printed entries. Those candidate arrays match the expanded adapter's federal records. Its immutable artifacts remain available for comparison.
 
 ## Write-in reconciliation
 
-The state certification supplies 17 rows. Eleven match Travis offices with printed write-in slots; six refer to offices outside the Travis master scope. Harris's county list supplies 14 rows, all matched to unique offices with printed slots. These are 25 county-contest entries, with statewide names appearing in both counties. Certified names retain their own source office, name, page, bounds, and checksum. They remain separate from printed candidates and from generic write-in slots.
+The state certification supplies 17 rows. Eleven match Travis offices with printed write-in slots; six refer to offices outside the Travis master scope. Harris's county list supplies 14 rows, all matched to unique offices with printed slots. The official SOS Candidate Bio Portal export adds Travis County Clerk, for 26 county-contest entries, with statewide names appearing in both counties. Certified names retain their own source office, name, page, bounds, and checksum. They remain separate from printed candidates and from generic write-in slots.
 
-Travis's County Clerk slot has no applicable named certification in the retrieved documents. It remains unnamed and blocks composition approval for that scope. The state certification covers statewide/district offices and cannot establish a local candidate's identity.
+Travis's County Clerk qualification-source gap is closed by the current SOS-linked Candidate Bio Portal export. It lists LASHAWN NASH as WRITE-IN with status Candidate in the General Election for that office and election. The staged slot now has a separate named write-in with worksheet/row/checksum provenance. Human review remains pending. The statewide/district PDF alone still cannot establish a local identity. See [Travis follow-up](travis-review-followup.md).
 
 ## Cancellation reconciliation
 
@@ -62,6 +62,10 @@ The ignored `data/official/REVIEW.md` packet lists staged records, bilingual mea
 The public `/official-data` page displays source metadata, checksums, aggregate coverage, staged counts, and review issues. It excludes candidate records, proposition text, form values, and machine transcriptions. The ballot explorer uses labeled synthetic fixtures. No official composition snapshot or individual ballot is published.
 
 The [private review workflow](m2-review-workflow.md) implements transactional staging, RLS-protected tasks, authenticated reviewer functions, append-only decisions, and derived progress. The user-confirmed hosted project now holds the two current runs with 679 open tasks and zero decisions; [live Auth/API checks](m2-hosted-verification.md) have passed. Remaining work includes the local write-in certification, the library cancellation conflict, record-by-record review, official jurisdictions/styles, normalized composition mapping, and a trusted publisher that validates every contributing source. Verified official address/style examples are required before personalized lookup.
+
+## Current style-validation pass
+
+The [ballot style comparison harness](m2-ballot-style-validation.md) rejects changed contest membership/order, candidate order, write-ins, voting instructions, bilingual proposition wording, electorate variants, invalid page coverage, and altered reference bytes. Both counties currently have zero independent individual-style references and zero address fixtures. Current public lookup forms require voter information and were left unsubmitted. M2 remains blocked for official style verification.
 
 ## Verification
 

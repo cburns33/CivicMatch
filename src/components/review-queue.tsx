@@ -110,7 +110,7 @@ export function ReviewQueue() {
           <div className="eyebrow">{task.kind.replaceAll("_", " ")}</div>
           <h2>{value(task.payload, "printedTitle") || value(task.payload, "title") || value(task.payload, "printedScope") || value(task.payload, "printedOffice") || value(task.payload, "message") || "Import change"}</h2>
           {value(task.payload, "printedName") && <p>{value(task.payload, "printedName")}</p>}
-          {typeof task.payload.sourcePage === "number" && <p>Source page {task.payload.sourcePage}{typeof task.payload.sourceColumn === "number" ? `, column ${task.payload.sourceColumn}` : ""}.</p>}
+          {value(task.payload, "sourceSheet") ? <p>Worksheet: {value(task.payload, "sourceSheet")}, row {String(task.payload.sourceRow)}.</p> : typeof task.payload.sourcePage === "number" && <p>Source page {task.payload.sourcePage}{typeof task.payload.sourceColumn === "number" ? `, column ${task.payload.sourceColumn}` : ""}.</p>}
           {sourceUrl(value(task.payload, "url")) && <a className="text-link" href={sourceUrl(value(task.payload, "url"))} target="_blank" rel="noreferrer">Open official source (new tab)</a>}
           {task.kind === "record" && <PrintedRecord record={task.payload} />}
           {task.kind === "change" && <>

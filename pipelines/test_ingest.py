@@ -169,7 +169,7 @@ class IntakeTests(unittest.TestCase):
         self.assertEqual(sum("THIS IS A TAX INCREASE" in r["wordingByLanguage"]["en"] for r in variants), 1)
         self.assertTrue(all(r["identityStatus"] == "scope_supported_pending_review" for r in variants))
         self.assertEqual({r["electorateScope"] for r in variants}, {"existing_district", "annexation_territory"})
-        self.assertEqual(sum(w["matchStatus"] == "matched_slot" for w in runs["travis"]["reconciliation"]["writeIns"]), 11)
+        self.assertEqual(sum(w["matchStatus"] == "matched_slot" for w in runs["travis"]["reconciliation"]["writeIns"]), 12)
         self.assertEqual(sum(w["matchStatus"] == "matched_slot" for w in runs["harris"]["reconciliation"]["writeIns"]), 14)
         self.assertEqual(len(runs["travis"]["reconciliation"]["cancellations"]), 51)
         self.assertEqual(len(runs["harris"]["reconciliation"]["cancellations"]), 31)

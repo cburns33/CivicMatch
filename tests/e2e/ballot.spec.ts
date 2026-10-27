@@ -34,10 +34,10 @@ test("official intake shows sources and pending scope without unreviewed candida
   ).toBeVisible();
   await expect(
     page.getByRole("link", { name: "Open official document", exact: false }),
-  ).toHaveCount(6);
+  ).toHaveCount(7);
   await page.getByText("51 cancellation documents and archive details", { exact: true }).click();
   await expect(page.getByRole("heading", { name: "City of Mustang Ridge", exact: true })).toBeVisible();
-  await expect(page.getByRole("link", { name: "Open official document", exact: false })).toHaveCount(57);
+  await expect(page.getByRole("link", { name: "Open official document", exact: false })).toHaveCount(58);
   await page.getByText("51 cancellation documents and archive details", { exact: true }).click();
   await page
     .getByText("Source checksum and retrieval details", { exact: true })
@@ -50,6 +50,9 @@ test("official intake shows sources and pending scope without unreviewed candida
     ),
   ).toBeVisible();
   await expect(page.getByText("Ken Paxton", { exact: false })).toHaveCount(0);
+  await expect(page.getByText("LASHAWN NASH", { exact: false })).toHaveCount(0);
+  await expect(page.getByRole("heading", { name: "Ballot style validation", exact: true })).toBeVisible();
+  await expect(page.getByText("0 individual style references checked, 0 verified styles", { exact: false })).toHaveCount(2);
   expect(
     await page.evaluate(
       () => document.documentElement.scrollWidth <= window.innerWidth,

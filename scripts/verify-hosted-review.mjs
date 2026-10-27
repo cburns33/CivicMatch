@@ -3,7 +3,7 @@
 import { createClient } from "@supabase/supabase-js";
 import { execSync } from "node:child_process";
 import { randomBytes, randomUUID } from "node:crypto";
-import { mkdir, writeFile } from "node:fs/promises";
+import { mkdir, writeFile, readFile } from "node:fs/promises";
 
 const project = "rsmwpzzypdbpffdeolal";
 const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
@@ -25,7 +25,8 @@ try {
   const ownerLogin = await reviewer.auth.signInWithPassword({ email: process.env.CIVICMATCH_REVIEWER_EMAIL, password: process.env.CIVICMATCH_REVIEWER_PASSWORD });
   verify(!ownerLogin.error, "reviewer_password_sign_in");
   verify((await reviewer.rpc("is_composition_reviewer")).data === true, "reviewer_membership");
-  const progress = await reviewer.rpc("composition_review_progress");
+  const currentRuns = await Promise.all(["travis", "harris"].map(async (county) => JSON.parse(await readFile(`data/official/latest/${county}.json`, "utf8")).runId));
+  const progress = await reviewer.rpc("composition_review_progress").in("run_sha256", currentRuns);
   verify(!progress.error && progress.data.length === 2, "both_county_imports_visible_to_reviewer");
   verify(progress.data.every((row) => row.accepted === 0 && row.open === row.total), "no_fabricated_approvals");
   const first = progress.data[0];

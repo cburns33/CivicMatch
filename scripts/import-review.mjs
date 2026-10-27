@@ -14,7 +14,8 @@ const packets = [];
 for (const county of ["travis", "harris"]) {
   const packet = JSON.parse(await readFile(join(store, "latest", `${county}.json`), "utf8"));
   for (const { source } of packet.documents) {
-    if (!/^[a-f0-9]{64}$/.test(source.sha256) || source.archivePath !== `documents/${source.sha256}.pdf`)
+    const extension = source.mediaType === "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" ? "xlsx" : "pdf";
+    if (!/^[a-f0-9]{64}$/.test(source.sha256) || source.archivePath !== `documents/${source.sha256}.${extension}`)
       throw new Error("Invalid content-addressed source reference");
     if (hash(await readFile(join(store, source.archivePath))) !== source.sha256)
       throw new Error("Archived source checksum mismatch");
@@ -72,7 +73,7 @@ if (hosted) {
       await tx.exec("set local role authenticated");
       await tx.query("select set_config('request.jwt.claim.sub',$1,true)", [localActor]);
       for (const packet of packets) await tx.query("select stage_composition_batch($1::jsonb)", [JSON.stringify(packet)]);
-      const result = await tx.query("select county,run_sha256,total::int,accepted::int,open::int,requires_new_import::int from composition_review_progress()");
+      const result = await tx.query("select county,run_sha256,total::int,accepted::int,open::int,requires_new_import::int from composition_review_progress() where run_sha256=any($1)", [packets.map((p) => p.runId)]);
       console.log(JSON.stringify({ environment: "local_auth_shim", imports: result.rows, publication: "blocked" }));
     });
   } finally { await db.close(); }

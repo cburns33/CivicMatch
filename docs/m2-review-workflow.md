@@ -11,7 +11,7 @@ This step implements durable staging and evidence-linked review. It does not app
 - Source gaps, extraction failures, and unverified style membership cannot be accepted through a note. They require a corrected or newly verified import. Historical source-gap tasks receive the same protection.
 - `/admin` provides provisioned-account sign-in, paginated tasks, printed source content, before/after records, source links, decisions, latest decision history, and sign-out. Supabase sessions remain in browser memory. Every data read and decision is subject to database authorization. No service-role key is used by this flow.
 
-The review migrations are `20261026200436_composition_review_queue.sql`, `20261026201031_composition_review_page.sql`, `20261026202032_composition_source_blockers.sql`, and `20261027005856_private_review_functions.sql`. Privileged write implementations live in the private schema, behind public invoker wrappers with current-membership checks. The membership lookup uses the caller's read-own-membership policy. Public snapshot permissions are unchanged.
+The workbook-evidence extension is `20261027013703_official_workbook_reference.sql`; it permits official portal XLSX supporting references while preserving reviewer checks and PDF masters. The review migrations are `20261026200436_composition_review_queue.sql`, `20261026201031_composition_review_page.sql`, `20261026202032_composition_source_blockers.sql`, and `20261027005856_private_review_functions.sql`. Privileged write implementations live in the private schema, behind public invoker wrappers with current-membership checks. The membership lookup uses the caller's read-own-membership policy. Public snapshot permissions are unchanged.
 
 ## Local staged store
 
@@ -45,3 +45,5 @@ There are zero verified official address/style fixtures. A consolidated county m
 ## Verification limits
 
 PostgreSQL tests exercise transaction rollback, idempotence, altered-payload rejection, role/RLS isolation, current membership, history immutability, decision reopening, source membership, and hard blockers. Mocked browser tests cover sign-in, saving, decision history, sign-out, and non-reviewer denial. The separate live hosted verification checks real passwords/JWTs, API grants, RLS, source blockers, token forgery, and membership revocation. It creates and removes one synthetic non-reviewer and never accepts a ballot review task.
+
+Current v4 imports contain 391 Travis tasks, including two hard blockers, and 286 Harris tasks, including one hard blocker. Earlier batches are retained. Both current batches have zero decisions. Style comparison reports remain separate from approval and cannot clear a review blocker.

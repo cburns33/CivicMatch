@@ -21,10 +21,11 @@ import pdfplumber
 from pypdf import PdfReader
 import full_ballot
 import supplements
+import candidate_export
 
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_STORE = ROOT / "data" / "official"
-ADAPTER_VERSION = "county-reference-v3"
+ADAPTER_VERSION = "county-reference-v4"
 ELECTION_DATE = "2026-11-03"
 SOURCES = {
     "travis": "https://votetravis.gov/current-election-information/current-election/",
@@ -275,6 +276,10 @@ def extract_document(store: Path, source: dict) -> dict:
     path = store / source["archivePath"]
     if digest(path.read_bytes()) != source["sha256"]:
         raise ValueError("Archived source checksum mismatch")
+    if source["mediaType"] == candidate_export.MIME:
+        if source["kind"] != "supporting_reference" or source["title"] != candidate_export.TITLE or source["url"] != candidate_export.PORTAL:
+            raise ValueError("Unsupported workbook reference")
+        return candidate_export.extract(path, source)
     pages, records, issues, coverage = [], [], [], []
     form_fields = {key: str(value.get("/V", "")) for key, value in (PdfReader(path).get_fields() or {}).items()} if source["kind"] == "cancellations" else {}
     ocr_path = store / "ocr" / f"{source['sha256']}.json"
@@ -336,7 +341,8 @@ def stage(store: Path, county: str, sources: list[dict]) -> dict:
             or len({(s["kind"], s["sha256"], s.get("title", "")) for s in selected}) != len(selected)):
         raise ValueError("County intake requires its master ballot and all configured supplements")
     for source in selected:
-        if not re.fullmatch(r"[a-f0-9]{64}", source["sha256"]) or source["archivePath"] != f"documents/{source['sha256']}.pdf":
+        extension = "xlsx" if source.get("mediaType") == candidate_export.MIME else "pdf"
+        if not re.fullmatch(r"[a-f0-9]{64}", source["sha256"]) or source["archivePath"] != f"documents/{source['sha256']}.{extension}":
             raise ValueError("Invalid content-addressed archive reference")
         if digest((store / source["archivePath"]).read_bytes()) != source["sha256"]:
             raise ValueError("Archived source checksum mismatch")
@@ -381,7 +387,7 @@ def source_status(run: dict) -> dict:
             "cancellationMatches": {key: sum(n["matchStatus"] == key for n in run["reconciliation"]["cancellations"]) for key in ["corroborates_declaration", "possible_active_conflict", "measure_only_scope", "no_matching_master_record", "scope_review_required"]},
             "issues": [issue for doc in run["documents"] for issue in doc["issues"]] + run["reconciliation"]["issues"],
             "sources": [{**doc["source"], "pageCount": len(doc["pages"]),
-                         "extractionScope": "targeted_first_page" if doc["source"]["kind"] == "supporting_reference" else "all_pages",
+                         "extractionScope": "filtered_workbook" if doc["source"]["mediaType"] == candidate_export.MIME else "targeted_first_page" if doc["source"]["kind"] == "supporting_reference" else "all_pages",
                          "pagesWithText": sum(bool(p["text"].strip()) for p in doc["pages"]),
                          "pagesWithOcr": sum("ocrText" in p for p in doc["pages"])} for doc in run["documents"]]}
 
@@ -402,6 +408,9 @@ def main() -> None:
             for kind, link in discover(county, html).items():
                 sources.append(archive(args.store, county, kind, link["title"], link["url"], landing["sha256"]))
         sources.extend(fetch_extended_sources(args.store))
+        browser_manifest = args.store / "browser-reference-manifest.json"
+        if browser_manifest.exists():
+            sources.extend(json.loads(browser_manifest.read_text(encoding="utf-8")))
         manifest_path.write_bytes(canonical(sources))
     else:
         sources = json.loads(manifest_path.read_text(encoding="utf-8"))

@@ -27,6 +27,16 @@ The generated `src/data/official-source-status.json` contains only source metada
 
 ## Review boundary
 
-This adapter does not approve or publish ballot composition, merge people by name, determine jurisdiction/district membership, or verify addresses. The [separate review workflow](../docs/m2-review-workflow.md) consumes its immutable runs through a transactional import. A printed blank write-in slot is distinct from a declared write-in candidate. Supplemental matches remain unapproved. Repeated proposition captions retain separate variant identities; electorate scope is added only when all four ESD 10 clauses match the official order by wording, letter, and warning. The Travis County Clerk write-in slot remains unnamed pending a local certification.
+This adapter does not approve or publish ballot composition, merge people by name, determine jurisdiction/district membership, or verify addresses. The [separate review workflow](../docs/m2-review-workflow.md) consumes its immutable runs through a transactional import. A printed blank write-in slot is distinct from a declared write-in candidate. Supplemental matches remain unapproved. Repeated proposition captions retain separate variant identities; electorate scope is added only when all four ESD 10 clauses match the official order by wording, letter, and warning. The Travis County Clerk slot has a named write-in supported by the official SOS candidate-portal export, pending human review.
 
 Before approval, compare every normalized record with the identified PDF page, reconcile supplemental notices and identities, account for remaining source sections, validate official styles, and record a human review decision. The [M2 intake report](../docs/m2-intake.md) records the current scope and remaining work; the [ingestion plan](../docs/ingestion-plan.md) defines the broader milestone.
+
+## Official portal qualification evidence
+
+The current SOS-linked Candidate Bio Portal supplies a filtered XLSX export for Travis County Clerk. Use its UI to select 2026, November General Election, County, Travis, County Clerk, then Export results. Preserve the unchanged download. Register it with `python pipelines/candidate_export.py path/to/export.xlsx`, then run `python pipelines/ingest.py stage` and `python pipelines/validate_styles.py`.
+
+Registration archives the workbook bytes and records the official discovery page, portal URL, retrieval time, and filters. The parser requires the exact election/office header and worksheet layout. Only names, party designation, status, and source row enter staging; contact fields stay outside structured records. Only WRITE-IN rows with status Candidate in the General Election can supply named qualification evidence. Unsupported layouts and missing qualifying rows fail without silently removing prior evidence. The workbook is a supporting reference, never the county master or the statewide certification PDF. Future fetches retain registered browser exports through the ignored browser-reference manifest; their retrieval dates stay visible.
+
+## Style comparisons
+
+`python pipelines/validate_styles.py` checks independent style transcriptions against separately proposed staged membership. It returns code 2 while official references/review are missing. Current Travis and Harris reports are blocked with zero references. A comparison pass remains pending review and cannot establish address eligibility or publish composition. See [the reference contract and access findings](../docs/m2-ballot-style-validation.md).
