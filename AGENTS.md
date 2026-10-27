@@ -21,6 +21,8 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 
 ## Current project state: CivicMatch TX, October 26, 2026
 
+- GitHub setup is complete: `origin` is `https://github.com/cburns33/CivicMatch.git`, default branch `main`, initial code commit `1231bbc484ec78d45044fa08b0cfe0690f422824` pushed and verified against GitHub's commit API. The 67 tracked project files passed the credential-pattern scan; `.env.local`, archived data, local review DB, Vercel state, and generated output are untracked/ignored. Blank `.env.example` is tracked. Vercel and Supabase repository integrations have not been connected by this push.
+
 - The user approved additional official election orders, local write-in lists, and public ballot-style references, including files over 1 MB and all relevant rows. Private voter records remain excluded. That broad official-reference approval is no longer pending.
 - The user chose a dedicated Supabase project and explicitly restricted spending to Free only. A new default-Free organization named `CivicMatch TX` was created, slug `otukajvqqkenmrnmqxtj`. No project was created. The user took over project creation. Do not enable paid compute, upgrades, branching, or add-ons. The original organization and its two existing projects are unchanged.
 - Three library agendas were archived under the broader approval in the ignored source store: September 15, September 29 special meeting, and October 20, 2026. They do not establish the missing library cancellation. Receipts are in `data/official/approved-reference-research.json`; they remain research references outside the current composition manifest. The library and County Clerk source gaps remain open.
