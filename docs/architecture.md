@@ -68,3 +68,9 @@ Boundaries are stored as source-versioned WGS84 GeoJSON polygons. M1 validates t
 ## Verification limits
 
 PGlite executes the migration and exercises real PostgreSQL constraints, roles, triggers, and policies. The tests bootstrap a minimal Supabase Auth-compatible shim. Full Supabase local reset, Auth/JWT behavior, PostgREST grants, advisors, and hosted configuration require a Docker-backed or isolated Supabase environment before deployment. Nothing in this milestone is a verified official ballot.
+
+## M2 composition mapping and publication controls
+
+The composition workflow now has immutable normalized mapping drafts, append-only mapping reviews, private archive/style evidence, immutable composition publications, an active pointer, and an audit trail. The SQL normalizer reads the stored source import and explicit assignments. Unknown assignments remain blocking issues. Source-occurrence candidate IDs preserve names without claiming global person identity.
+
+The owner-only publisher validates current source reviews, mapping completeness and approval, archive verification, official style evidence, published-baseline review, and expected active pointer in one serialized transaction. Reopened source or mapping reviews withdraw the pointer while retaining the snapshot. Current official drafts are incomplete and unpublished. The fixture explorer and M1 foundation entity tables are unchanged. The M1 generic research snapshot model remains separate from M2 composition publications. See [mapping and publisher workflow](m2-composition-publisher.md) for the implemented boundary and remaining integration work.

@@ -4,6 +4,7 @@ import { useEffect, useState, type FormEvent } from "react";
 import { createClient, type SupabaseClient } from "@supabase/supabase-js";
 import { Button } from "@/components/ui/button";
 import { ReviewReadiness, reviewKinds, type Readiness } from "@/components/review-readiness";
+import { CompositionMappingStatus, type MappingStatus } from "@/components/composition-mapping-status";
 
 type Progress = { run_sha256: string; county: string; total: number; accepted: number; open: number; requires_new_import: number };
 type Task = { id: string; task_key: string; kind: string; payload: Record<string, unknown>; requires_new_import: boolean; matched_total: number; last_decision: { decision: string; note: string; reviewerId: string; decidedAt: string } | null };
@@ -38,6 +39,7 @@ export function ReviewQueue() {
   const [tasks, setTasks] = useState<Task[]>([]);
   const [sources, setSources] = useState<Source[]>([]);
   const [readiness, setReadiness] = useState<Readiness | null>(null);
+  const [mappingStatus, setMappingStatus] = useState<MappingStatus | null>(null);
   const [filters, setFilters] = useState(defaultFilters);
   const [draftFilters, setDraftFilters] = useState(defaultFilters);
   const [matchedTotal, setMatchedTotal] = useState(0);
@@ -53,23 +55,27 @@ export function ReviewQueue() {
   }, [client]);
   useEffect(() => {
     const subscription = client?.auth.onAuthStateChange((event) => {
-      if (event === "SIGNED_OUT") { setSignedIn(false); setTasks([]); setSources([]); setProgress([]); setReadiness(null); setFilters(defaultFilters); setDraftFilters(defaultFilters); setMatchedTotal(0); setRun(""); }
+      if (event === "SIGNED_OUT") { setSignedIn(false); setTasks([]); setSources([]); setProgress([]); setReadiness(null); setMappingStatus(null); setFilters(defaultFilters); setDraftFilters(defaultFilters); setMatchedTotal(0); setRun(""); }
     });
     return () => subscription?.data.subscription.unsubscribe();
   }, [client]);
 
   async function load(runId: string, start = 0, selected = defaultFilters) {
     if (!client) return;
-    const [queue, documents, totals, summary] = await Promise.all([
+    const [queue, documents, totals, summary, drafts] = await Promise.all([
       client.rpc("composition_review_search", { p_run: runId, p_offset: start, p_limit: pageSize, p_kind: selected.kind, p_state: selected.state, p_query: selected.query }),
       client.from("composition_review_tasks").select("payload").eq("run_sha256", runId).eq("kind", "source"),
       client.rpc("composition_review_progress"),
       client.rpc("composition_review_readiness", { p_run: runId }),
+      client.from("composition_mapping_drafts").select("sha256").eq("run_sha256", runId).order("created_at", { ascending: false }).limit(1),
     ]);
-    if (queue.error || documents.error || totals.error || summary.error || !summary.data) throw new Error("The review queue could not be loaded. Check your reviewer access and try again.");
+    if (queue.error || documents.error || totals.error || summary.error || !summary.data || drafts.error) throw new Error("The review queue could not be loaded. Check your reviewer access and try again.");
+    const publication = drafts.data.length ? await client.rpc("composition_publication_status", { p_draft: drafts.data[0].sha256 }) : null;
+    if (publication?.error) throw new Error("Mapping status could not be loaded. Try again.");
     setRun(runId); setOffset(start); setTasks(queue.data as Task[]);
     setSources(documents.data.map((row) => row.payload as Source)); setProgress(totals.data as Progress[]);
     setReadiness(summary.data as Readiness); setFilters(selected); setDraftFilters(selected); setMatchedTotal(Number(queue.data[0]?.matched_total ?? 0));
+    setMappingStatus(publication?.data as MappingStatus | null ?? null);
   }
   async function signIn(event: FormEvent<HTMLFormElement>) {
     event.preventDefault(); if (!client) return;
@@ -116,6 +122,7 @@ export function ReviewQueue() {
         </select></label>
         <p>Accepted tasks: {progress.find((p) => p.run_sha256 === run)?.accepted ?? 0}. Every source, record, change, and issue needs a decision. A new import is required to clear extraction or ballot-style blockers.</p>
         {readiness && <ReviewReadiness readiness={readiness} />}
+        <CompositionMappingStatus status={mappingStatus} />
         <form className="review-form" aria-label="Filter review tasks" onSubmit={(event) => {
           event.preventDefault(); const data = new FormData(event.currentTarget);
           void changePage(run, 0, { kind: String(data.get("kind")), state: String(data.get("state")), query: String(data.get("query")).trim() });

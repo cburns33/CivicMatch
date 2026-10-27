@@ -41,6 +41,8 @@ async function mockReviewService(page: Page, reviewer = true) {
       expect(input.p_source_hashes).toEqual([source.sha256]);
       accepted = input.p_decision === "accepted"; body = 1;
     } else if (url.pathname === "/rest/v1/composition_review_tasks") body = [{ payload: source }];
+    else if (url.pathname === "/rest/v1/composition_mapping_drafts") body = [{ sha256: "c".repeat(64) }];
+    else if (url.pathname.endsWith("/composition_publication_status")) body = { draftSha256: "c".repeat(64), ready: false, blockers: ["mapping_incomplete", "official_style_evidence_missing"] };
     else if (url.pathname === "/auth/v1/logout") return route.fulfill({status: 204, headers});
     else throw new Error(`Unexpected mock service route: ${url.pathname}`);
     await route.fulfill({status: 200, contentType: "application/json", headers, body: JSON.stringify(body)});
@@ -56,6 +58,8 @@ test("review sign-in, source-linked decision, hard blocker, and sign-out", async
   await page.getByLabel("Password", {exact: true}).fill("synthetic-only-password");
   await page.getByRole("button", {name: "Sign in to review", exact: true}).click();
   await expect(page.getByText("SYNTHETIC private candidate")).toBeVisible();
+  await expect(page.getByRole("heading", {name: "Composition mapping", exact: true})).toBeVisible();
+  await expect(page.getByText("Draft prepared. Publication is blocked.", {exact: true})).toBeVisible();
   const task = page.locator("section.official-document").first();
   await task.getByLabel("Decision", {exact: true}).selectOption("accepted");
   await task.getByLabel("Evidence and reason", {exact: true}).fill("Compared this synthetic record with its source page.");
@@ -67,6 +71,7 @@ test("review sign-in, source-linked decision, hard blocker, and sign-out", async
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
   await page.getByRole("button", {name: "Sign out", exact: true}).click();
   await expect(page.getByText("SYNTHETIC private candidate")).toHaveCount(0);
+  await expect(page.getByRole("heading", {name: "Composition mapping", exact: true})).toHaveCount(0);
 });
 
 test("a signed-in account without reviewer access never loads draft records", async ({page}) => {

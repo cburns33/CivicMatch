@@ -63,3 +63,7 @@ node --env-file=.env.local scripts/check-review-readiness.mjs
 ```
 
 It pins the confirmed project, signs in as the provisioned reviewer using the publishable client, checks the two current local run pointers against hosted totals, and writes aggregate metadata to ignored `output/readiness/current.json`. It creates no decisions or accounts. Exit code 2 means publication remains unavailable. A complete review of every task still requires separate official style/address validation, normalized composition validation, and a trusted publisher.
+
+## Normalized mapping and publication controls
+
+The [composition mapping and publisher workflow](m2-composition-publisher.md) now prepares private normalized drafts and validates a trusted publication transaction. Its checks preserve the source/style blockers described above. Draft source content can be normalized while jurisdiction/office assignments remain unresolved; incomplete mappings cannot be accepted. Source-task acceptance, mapping acceptance, trusted style evidence, and publication are separate records and actions. Current source and mapping review decisions remain zero. No official composition snapshot or active pointer exists.
