@@ -1,0 +1,418 @@
+{
+  "version": "tx-senate-2026-10-27-v1-provisional",
+  "review": {
+    "status": "provisional",
+    "reviewer": null,
+    "reviewedAt": null
+  },
+  "sources": [
+    {
+      "id": "paxton-platform",
+      "title": "Paxton Senate platform",
+      "url": "https://www.kenpaxton.com/issues",
+      "publishedAt": null,
+      "sha256": "105e7e8ff30ada53afef98af50869c9f56a8dc38c783de73e7aeb3809bf7b098",
+      "retrievedAt": "2026-10-28T01:27:07.759Z"
+    },
+    {
+      "id": "paxton-aca",
+      "title": "Paxton ACA challenge and stated repeal goal",
+      "url": "https://www.texasattorneygeneral.gov/news/releases/ag-paxton-and-wisconsin-ag-file-20-state-lawsuit-end-grip-obamacare-texas-and-nation",
+      "publishedAt": "2018-02-26",
+      "sha256": "03a8a0e6cd60f687fab984313a9b1b2e00ae4fba75268c901c2c23e92cffe3ca",
+      "retrievedAt": "2026-10-28T01:27:07.732Z"
+    },
+    {
+      "id": "paxton-abortion",
+      "title": "Paxton statement on Roe reversal",
+      "url": "https://www.texasattorneygeneral.gov/news/releases/ag-paxton-celebrates-end-roe-v-wade-announces-abortion-now-illegal-texas",
+      "publishedAt": "2022-06-24",
+      "sha256": "24c47b4d4be94c30d8188c52517de12305eb503058e93fdcf8571605ab9d76ff",
+      "retrievedAt": "2026-10-28T01:27:07.775Z"
+    },
+    {
+      "id": "paxton-guns",
+      "title": "Paxton private-firearm-sales challenge",
+      "url": "https://www.texasattorneygeneral.gov/news/releases/attorney-general-ken-paxton-secures-injunction-stopping-biden-administrations-unlawful-attempt-ban",
+      "publishedAt": "2024-06-12",
+      "sha256": "c6bff0b06c45cdc1f850642bd660b1df1644ff6cd1a9597d4f9f7b1a86c77636",
+      "retrievedAt": "2026-10-28T01:27:07.737Z"
+    },
+    {
+      "id": "paxton-tariffs",
+      "title": "Paxton tariff response to the Houston Chronicle",
+      "url": "https://www.houstonchronicle.com/projects/politics/texas/trump-tariff-lawmaker-reactions/",
+      "publishedAt": "2025-04-10",
+      "sha256": "ebcdac586c67faa97afa6a65d646f48f6a4af581a597429873192925f4b92d78",
+      "retrievedAt": "2026-10-28T01:27:07.848Z"
+    },
+    {
+      "id": "talarico-health",
+      "title": "Talarico federal health priorities",
+      "url": "https://jamestalarico.com/issue/health-care/",
+      "publishedAt": null,
+      "sha256": "36d0b5397558dbac93393a830032958ffe12aa4167a4a62c53bd723c1ae0a874",
+      "retrievedAt": "2026-10-28T01:27:07.664Z"
+    },
+    {
+      "id": "talarico-freedom",
+      "title": "Talarico reproductive and family policy",
+      "url": "https://jamestalarico.com/issue/freedom-family-faith/",
+      "publishedAt": null,
+      "sha256": "785e73f7a0f3b7250f1fdae369c585ae3b749733a003ee019c79c226737bd6ba",
+      "retrievedAt": "2026-10-28T01:27:07.667Z"
+    },
+    {
+      "id": "talarico-safety",
+      "title": "Talarico gun and cannabis policy",
+      "url": "https://jamestalarico.com/issue/public-safety-justice/",
+      "publishedAt": null,
+      "sha256": "a8eee2cd91fa9eced151c6bb24ca093e5f158565a5a438955986014753a0b66c",
+      "retrievedAt": "2026-10-28T01:27:07.661Z"
+    },
+    {
+      "id": "talarico-taxes",
+      "title": "Talarico trade and cost-of-living policy",
+      "url": "https://jamestalarico.com/issue/taxes-cost-of-living/",
+      "publishedAt": null,
+      "sha256": "d6db744edbdd555cebce7dd9f62e07215a67475194a2732dbf8400685185a425",
+      "retrievedAt": "2026-10-28T01:27:07.671Z"
+    },
+    {
+      "id": "brown-platform",
+      "title": "Ted Brown federal policy platform",
+      "url": "https://www.tedbrown.org/website/index.html",
+      "publishedAt": null,
+      "sha256": "e78d594cdcd56d5b5236d0c46f01328be1b72854ddefc2ad0d2df83d911e97e0",
+      "retrievedAt": "2026-10-28T01:27:07.799Z"
+    },
+    {
+      "id": "hall-platform",
+      "title": "Hall adopted positions and undecided issues",
+      "url": "https://senate.deadliftradio.com/positions.html",
+      "publishedAt": null,
+      "sha256": "d85a94c29d94113edfd970f27325c9dfbcfb0647b57b75b2eca491b769dac2fa",
+      "retrievedAt": "2026-10-28T01:27:07.713Z"
+    },
+    {
+      "id": "ayers-platform",
+      "title": "Ayers issue priorities",
+      "url": "https://ayers4.us/issues",
+      "publishedAt": null,
+      "sha256": "75530bcea9b3884abfe7ba61793a39f39ddfb9029a7d1897fac295c6e9e7ec9c",
+      "retrievedAt": "2026-10-28T01:27:08.797Z"
+    },
+    {
+      "id": "mohamed-platform",
+      "title": "Mohamed policy agenda",
+      "url": "https://zulmohamedfortexas.com/vote-new-america/",
+      "publishedAt": null,
+      "sha256": "3cc75b21384e499495577bf844670eea7dac70622f84c968597edd2b34df2bbe",
+      "retrievedAt": "2026-10-28T01:27:08.779Z"
+    },
+    {
+      "id": "simmons-platform",
+      "title": "Simmons campaign priorities",
+      "url": "https://www.jadesimmonsforsenate.com/faqs",
+      "publishedAt": null,
+      "sha256": "9a207e884d510002b78984edf7e20c3e495285fa4aef8992127fca96237fcf8c",
+      "retrievedAt": "2026-10-28T01:27:07.863Z"
+    }
+  ],
+  "positions": [
+    {
+      "candidateId": "paxton",
+      "questionId": "us-abortion-v1",
+      "value": 2,
+      "kind": "recorded_statement",
+      "summary": "Paxton opposed Roe's nationwide abortion protection and pledged to defend Texas abortion prohibitions in his June 2022 statement.",
+      "rationale": "This supports opposition to restoring a comparable federal protection.",
+      "limitations": "This is a dated statement, interpreted for the federal question. It does not resolve every medical exception or later bill.",
+      "confidence": "qualified",
+      "sourceIds": [
+        "paxton-abortion"
+      ],
+      "conflict": false
+    },
+    {
+      "candidateId": "paxton",
+      "questionId": "us-guns-v1",
+      "value": 2,
+      "kind": "documented_action",
+      "summary": "Paxton challenged an ATF rule expanding regulation of private gun sales and defended the ability to sell privately.",
+      "rationale": "His challenge and stated defense of private sales suggest opposition to broader private-sale checks.",
+      "limitations": "This is a provisional policy interpretation. The lawsuit also challenged agency authority; it does not prove opposition to every congressional background-check bill.",
+      "confidence": "qualified",
+      "sourceIds": [
+        "paxton-guns"
+      ],
+      "conflict": false
+    },
+    {
+      "candidateId": "paxton",
+      "questionId": "us-tariffs-v1",
+      "value": 4,
+      "kind": "recorded_statement",
+      "summary": "In an April 2025 response to the Houston Chronicle, Paxton supported Trump's broad tariff action as negotiating leverage.",
+      "rationale": "That stated rationale supports this tariff strategy.",
+      "limitations": "The response predates later tariff changes and court decisions; approval of every current rate is not inferred.",
+      "confidence": "qualified",
+      "sourceIds": [
+        "paxton-tariffs"
+      ],
+      "conflict": false
+    },
+    {
+      "candidateId": "paxton",
+      "questionId": "us-aca-v1",
+      "value": 2,
+      "kind": "documented_action",
+      "summary": "Paxton led the 2018 ACA challenge and stated that its aim was effective repeal and replacement.",
+      "rationale": "The action and stated goal support opposition to preserving the ACA framework.",
+      "limitations": "The record is from 2018. It establishes a past position and a provisional current mapping, without claiming a new 2026 repeal pledge or a particular replacement plan.",
+      "confidence": "qualified",
+      "sourceIds": [
+        "paxton-aca"
+      ],
+      "conflict": false
+    },
+    {
+      "candidateId": "paxton",
+      "questionId": "us-border-v1",
+      "value": 4,
+      "kind": "recorded_statement",
+      "summary": "Paxton's Senate platform supports completing the border wall.",
+      "rationale": "This supports funding additional physical barriers.",
+      "limitations": "His platform does not settle every route, land-acquisition method, environmental impact, or appropriation amount.",
+      "confidence": "qualified",
+      "sourceIds": [
+        "paxton-platform"
+      ],
+      "conflict": false
+    },
+    {
+      "candidateId": "talarico",
+      "questionId": "us-abortion-v1",
+      "value": 4,
+      "kind": "recorded_statement",
+      "summary": "Talarico proposes federal legislation codifying Roe v. Wade.",
+      "rationale": "Supports nationwide abortion protection before viability.",
+      "limitations": "The campaign gives no complete proposed statute; later-pregnancy and exception details remain separate.",
+      "confidence": "qualified",
+      "sourceIds": [
+        "talarico-freedom"
+      ],
+      "conflict": false
+    },
+    {
+      "candidateId": "talarico",
+      "questionId": "us-guns-v1",
+      "value": 4,
+      "kind": "recorded_statement",
+      "summary": "Talarico proposes universal background checks for gun sales.",
+      "rationale": "This includes expanding checks to private sales.",
+      "limitations": "The source does not provide a finished bill or transfer-exemption details.",
+      "confidence": "qualified",
+      "sourceIds": [
+        "talarico-safety"
+      ],
+      "conflict": false
+    },
+    {
+      "candidateId": "talarico",
+      "questionId": "us-tariffs-v1",
+      "value": 2,
+      "kind": "recorded_statement",
+      "summary": "Talarico calls for removing tariff barriers and reducing import-related costs.",
+      "rationale": "Suggests opposition to the broad tariff strategy in this question.",
+      "limitations": "This mapping does not imply opposition to every targeted tariff or trade-enforcement measure.",
+      "confidence": "qualified",
+      "sourceIds": [
+        "talarico-taxes"
+      ],
+      "conflict": false
+    },
+    {
+      "candidateId": "talarico",
+      "questionId": "us-aca-v1",
+      "value": 4,
+      "kind": "recorded_statement",
+      "summary": "Talarico proposes protecting and improving the ACA and restoring enhanced premium credits.",
+      "rationale": "Directly supports preserving the federal coverage framework.",
+      "limitations": "The statement does not specify every subsidy, funding level, or implementation detail.",
+      "confidence": "qualified",
+      "sourceIds": [
+        "talarico-health"
+      ],
+      "conflict": false
+    },
+    {
+      "candidateId": "talarico",
+      "questionId": "us-cannabis-v1",
+      "value": 4,
+      "kind": "recorded_statement",
+      "summary": "Talarico's Senate priorities include regulated adult marijuana legalization.",
+      "rationale": "Supports removing federal prohibition for adults.",
+      "limitations": "State legalization, expungement rules, taxes, and licensing details are separate policy choices.",
+      "confidence": "qualified",
+      "sourceIds": [
+        "talarico-safety"
+      ],
+      "conflict": false
+    },
+    {
+      "candidateId": "talarico",
+      "questionId": "us-leave-v1",
+      "value": 4,
+      "kind": "recorded_statement",
+      "summary": "Talarico proposes paid family leave legislation for new children and seriously ill relatives.",
+      "rationale": "Supports a nationwide paid family leave policy.",
+      "limitations": "Funding, eligibility, employer duties, and benefit levels are not fully specified.",
+      "confidence": "qualified",
+      "sourceIds": [
+        "talarico-freedom"
+      ],
+      "conflict": false
+    },
+    {
+      "candidateId": "brown",
+      "questionId": "us-guns-v1",
+      "value": 2,
+      "kind": "recorded_statement",
+      "summary": "Brown opposes additional firearm restrictions and favors repealing gun-control laws.",
+      "rationale": "Suggests opposition to expanded checks.",
+      "limitations": "Private-transfer details are unspecified.",
+      "confidence": "qualified",
+      "sourceIds": [
+        "brown-platform"
+      ],
+      "conflict": false
+    },
+    {
+      "candidateId": "brown",
+      "questionId": "us-tariffs-v1",
+      "value": 2,
+      "kind": "recorded_statement",
+      "summary": "Brown calls for removing tariffs and restoring free trade.",
+      "rationale": "Opposes broad import tariffs.",
+      "limitations": "Targeted sanctions remain a separate question.",
+      "confidence": "qualified",
+      "sourceIds": [
+        "brown-platform"
+      ],
+      "conflict": false
+    },
+    {
+      "candidateId": "brown",
+      "questionId": "us-aca-v1",
+      "value": 2,
+      "kind": "recorded_statement",
+      "summary": "Brown proposes healthcare without government interference.",
+      "rationale": "Suggests opposition to retaining the ACA framework.",
+      "limitations": "This is an interpretation; no specific ACA repeal pledge is stated.",
+      "confidence": "qualified",
+      "sourceIds": [
+        "brown-platform"
+      ],
+      "conflict": false
+    },
+    {
+      "candidateId": "brown",
+      "questionId": "us-border-v1",
+      "value": 2,
+      "kind": "recorded_statement",
+      "summary": "Brown opposes a border wall and favors freer lawful migration.",
+      "rationale": "Opposes additional wall funding.",
+      "limitations": "Other enforcement methods remain separate.",
+      "confidence": "qualified",
+      "sourceIds": [
+        "brown-platform"
+      ],
+      "conflict": false
+    },
+    {
+      "candidateId": "brown",
+      "questionId": "us-cannabis-v1",
+      "value": 4,
+      "kind": "recorded_statement",
+      "summary": "Brown proposes federal marijuana descheduling and repeal of drug prohibitions.",
+      "rationale": "Supports federal adult legalization.",
+      "limitations": "His preferred approach differs from regulated-market proposals.",
+      "confidence": "qualified",
+      "sourceIds": [
+        "brown-platform"
+      ],
+      "conflict": false
+    },
+    {
+      "candidateId": "brad-hall",
+      "questionId": "us-border-v1",
+      "value": 4,
+      "kind": "recorded_statement",
+      "summary": "Hall supports barriers where effective, alongside trained personnel, technology, and port inspections.",
+      "rationale": "Supports targeted additional physical barriers.",
+      "limitations": "This does not establish support for a continuous wall. Costs and operational details remain open.",
+      "confidence": "qualified",
+      "sourceIds": [
+        "hall-platform"
+      ],
+      "conflict": false
+    },
+    {
+      "candidateId": "brad-hall",
+      "questionId": "us-cannabis-v1",
+      "value": 4,
+      "kind": "recorded_statement",
+      "summary": "Hall supports regulated adult marijuana and federal reform, with age limits and product safeguards.",
+      "rationale": "Supports permitting adult use federally.",
+      "limitations": "Texas retains its own state-law decisions; detailed safeguards remain open.",
+      "confidence": "qualified",
+      "sourceIds": [
+        "hall-platform"
+      ],
+      "conflict": false
+    },
+    {
+      "candidateId": "ayers",
+      "questionId": "us-border-v1",
+      "value": null,
+      "kind": "recorded_statement",
+      "summary": "Ayers supports border security and immigration-law enforcement.",
+      "rationale": "Those goals do not determine support for funding physical barriers.",
+      "limitations": "No barrier-specific mapping is assigned from a general security statement.",
+      "confidence": "limited",
+      "sourceIds": [
+        "ayers-platform"
+      ],
+      "conflict": false
+    },
+    {
+      "candidateId": "mohamed",
+      "questionId": "us-aca-v1",
+      "value": null,
+      "kind": "recorded_statement",
+      "summary": "Mohamed's agenda supports universal healthcare.",
+      "rationale": "That goal does not decide whether to retain or replace the ACA framework.",
+      "limitations": "No ACA-specific position is inferred from the broader healthcare goal.",
+      "confidence": "limited",
+      "sourceIds": [
+        "mohamed-platform"
+      ],
+      "conflict": false
+    },
+    {
+      "candidateId": "simmons",
+      "questionId": "us-aca-v1",
+      "value": null,
+      "kind": "recorded_statement",
+      "summary": "Simmons lists accessible, affordable healthcare among her priorities.",
+      "rationale": "That goal does not establish an ACA preservation position.",
+      "limitations": "A concrete federal coverage proposal is needed for this question.",
+      "confidence": "limited",
+      "sourceIds": [
+        "simmons-platform"
+      ],
+      "conflict": false
+    }
+  ]
+}

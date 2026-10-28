@@ -11,10 +11,18 @@ export default function Methodology() {
       <div className="eyebrow">OPEN METHODOLOGY · SCORING PROPOSAL V1</div>
       <h1>Understand the comparison.</h1>
       <p className="lede">
-        The governor guide includes seven issue questions, importance ratings,
-        and device-only answer storage. This friends early-access version uses
+        One quiz groups fourteen questions into five issues, then compares your
+        views with all fourteen governor and U.S. Senate candidates in our current
+        coverage. Importance ratings and answers stay on your device. This friends early-access version uses
         sourced, AI-assisted provisional candidate mappings. Coverage limits,
         source links, and interpretations appear alongside results.
+      </p>
+      <p>
+        State and federal questions carry office labels. Each candidate's
+        denominator includes only questions relevant to their office. Answering
+        a governor question never supplies your answer to a federal question.
+        You can skip, revisit issues, review your importance ratings, and edit
+        your answers before or after viewing all candidate comparisons.
       </p>
       <h2>Ballot and research coverage are independent.</h2>
       <p>
@@ -201,7 +209,7 @@ export default function Methodology() {
         visible in the research record and reduces coverage when unresolved.
       </p>
       <Link className="text-link" href="/">
-        Return to the governor guide →
+        Return to the issue quiz →
       </Link>
     </article>
   );

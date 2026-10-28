@@ -25,6 +25,9 @@ export type ResearchPacket = {
   version: string; review: { status: "pending" | "provisional" | "approved"; reviewer: string | null; reviewedAt: string | null };
   positions: Position[]; sources: ResearchSource[];
 };
+export type QuizRace = { id: string; title: string; candidates: Candidate[]; questions: Question[]; research: ResearchPacket };
+export type QuizIssue = { id: string; title: string; description: string; questionIds: string[] };
+export const unifiedAnswerStorageKey = "civicmatch:issue-quiz-v1";
 
 export const researchPacketSchema: z.ZodType<ResearchPacket> = z.object({
   version: z.string().min(1).max(100),

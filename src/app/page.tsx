@@ -1,5 +1,5 @@
-import { RaceComparison } from "@/components/race-comparison";
-import { publishedGovernorResearch } from "@/data/governor-guide";
+import { IssueQuiz } from "@/components/issue-quiz";
+import { availableQuizRaces } from "@/data/issue-quiz";
 export default function Home() {
-  return <RaceComparison research={publishedGovernorResearch} />;
+  return <IssueQuiz races={availableQuizRaces} />;
 }

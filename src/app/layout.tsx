@@ -11,11 +11,11 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: {
-    default: "CivicMatch TX | Texas governor guide",
+    default: "CivicMatch TX | Your issue quiz",
     template: "%s | CivicMatch TX",
   },
   description:
-    "Explore the Texas governor candidates, answer seven policy questions, and inspect research coverage. Your answers stay on your device.",
+    "Take one issue-based quiz and compare your views with Texas governor and U.S. Senate candidates. Your answers stay on your device.",
   icons: { icon: "/icon.svg" },
   robots: { index: false, follow: false },
 };
@@ -40,21 +40,21 @@ export default function RootLayout({
             </span>
           </Link>
           <nav aria-label="Main navigation">
-            <Link href="/">Governor guide</Link>
+            <Link href="/">Issue quiz</Link>
             <Link href="/methodology">Our methodology</Link>
             <Link href="/sources">
               Sources <ArrowUpRight size={13} aria-hidden="true" />
             </Link>
           </nav>
           <span className="preview-pill">
-            <span /> Selected race guide
+            <span /> Friends early access
           </span>
         </header>
         <div className="workspace">
           <aside className="sidebar">
             <div className="sidebar-label">YOUR ELECTION COMPANION</div>
             <Link className="sidebar-link" href="/">
-              <ListChecks size={18} aria-hidden="true" /> Governor guide
+              <ListChecks size={18} aria-hidden="true" /> Issue quiz
             </Link>
             <Link className="sidebar-link" href="/methodology">
               <BookOpen size={18} aria-hidden="true" /> How comparisons

@@ -1275,6 +1275,14 @@ th {
 .race-evidence summary { padding-block: 10px; min-height: 44px; font-weight: 600; }
 .race-evidence small { color: var(--muted); }
 .research-preview { margin-top: 28px; }
+.quiz-intro { font-size: 18px; max-width: 650px; }
+.quiz-issue-list { list-style: none; padding: 0; display: grid; gap: 18px; }
+.quiz-issue-list strong, .quiz-issue-list span, .quiz-scope { display: block; }
+.quiz-issue-list span, .quiz-scope { color: var(--muted); }
+.quiz-scope { font-weight: 400; }
+.quiz-issue-nav { display: flex; flex-wrap: wrap; gap: 8px; margin-block: 20px; }
+.quiz-issue-nav button { min-height: 44px; padding: 8px 12px; border: 1px solid var(--line); border-radius: 8px; background: white; color: var(--ink); text-align: left; }
+.quiz-issue-nav button[aria-current="step"] { background: var(--teal); color: white; border-color: var(--teal); }
 @media (max-width: 760px) {
   .race-candidate-grid, .race-facts { grid-template-columns: 1fr; }
   .race-facts { gap: 18px; }
