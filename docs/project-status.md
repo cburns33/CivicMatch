@@ -4,6 +4,8 @@ The user authorized a selected-race launch to serve the closing election window 
 
 M2 remains in progress. County source/style blockers are deferred from the selected-race release and retain all existing publication guards. The [reviewer dashboard](https://civicmatch-tx.vercel.app/admin) retains source review, filtering, readiness, and mapping status, with a private research-preview entry point.
 
+The provisional comparison release is live and verified on desktop and mobile at https://civicmatch-tx.vercel.app. Code commit `a01ea91` is READY as deployment `dpl_8ziuosXP2i4ZR2pjNDuyX1L8Jccu`. The complete live questionnaire, importance changes, expected scores, source inspection, local persistence/clearing, hosted private preview, anonymous denial, and sign-out clearing passed. No political answers were sent to the server; zero review decisions were created. Validation is 164 Vitest checks, 22 desktop/mobile browser flows, production build, and the live production journeys.
+
 ## Current state
 
 - Official intake covers 58 PDFs plus one official candidate-portal workbook, with 317 PDF pages and 206 unverified OCR pages. The County Clerk write-in qualification-source gap is closed by the official SOS portal export.
@@ -21,7 +23,7 @@ M2 remains in progress. County source/style blockers are deferred from the selec
 
 ## Recommended next work
 
-1. Verify the live provisional release and collect the user's and friends' corrections to mappings. Preserve research versions and supporting source checksums. No per-position human approval is required for the authorized small-group release.
+1. Collect the user's and friends' corrections to live provisional mappings. Preserve research versions and supporting source checksums. No per-position human approval is required for the authorized small-group release.
 2. Fill governor evidence gaps, including write-ins, and extend to the next selected statewide race. Keep the same questions and research standards across candidates, with unknowns visible.
 3. County mapping editor, trusted style evidence, and address validation remain deferred. Their separate publication controls remain in force.
 
